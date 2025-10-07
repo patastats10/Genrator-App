@@ -1513,7 +1513,7 @@ if uploaded_file:
         labels=['Goal','Blocked','Off T','Saved','Wayward','Post'],
         loc='upper center',
         ncol=1,
-        bbox_to_anchor=(.44, -0.05),
+        bbox_to_anchor=(-2.55, -4.62),
         labelspacing=1.2,
         fontsize=12,
         frameon=False,
