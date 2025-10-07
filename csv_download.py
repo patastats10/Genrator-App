@@ -2137,7 +2137,7 @@ if st.button("عرض التقرير", key="show_report"):
     try:
         # نضع الكونتينر داخل العمود الأوسط فقط
         with col2:
-            st.title(f"📑 {selected_player}")
+            
 
             # ===== غلاف التقرير =====
             img = Image.open("WhatsApp Image 2025-09-04 at 01.18.28_529ef486.jpg")
@@ -2145,7 +2145,7 @@ if st.button("عرض التقرير", key="show_report"):
             ax_cover.imshow(img)
             ax_cover.axis('off')
             st.pyplot(fig_cover)
-
+            st.title(f"📑 {selected_player}")
             st.markdown("---")
 
             # ===== التبويبات =====
