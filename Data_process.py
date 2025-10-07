@@ -231,7 +231,7 @@ def process_and_predict_xG(data, model_path='IQStats_Xg.joblib'):
         v0 = np.array(g0) - np.array(p)
         v1 = np.array(g1) - np.array(p)
 
-        angle = np.math.atan2(np.linalg.det([v0, v1]), np.dot(v0, v1))
+        angle = math.atan2(np.linalg.det([v0, v1]), np.dot(v0, v1))
         return abs(np.degrees(angle))
 
     def calculate_distance(x, y):
