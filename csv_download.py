@@ -1454,14 +1454,14 @@ if uploaded_file:
         if outcome == "Goal":
             linestyle_ = linestyles.get(outcome, '-')
             marker_handles.append(
-                pitch.scatter([None], [None], color='w', edgecolor='k', linestyle=linestyle_, marker=marker, s=300,  ax=axs_Shots)
+                pitch.scatter([], [], color='w', edgecolor='k', linestyle=linestyle_, marker=marker, s=300,  ax=axs_Shots)
             )
         else:
             linestyle_ = linestyles.get(outcome, '-')
             color = colors.get(outcome, 'none')
             edgecolor = edgecolors.get(outcome, 'none')
             marker_handles.append(
-                pitch.scatter([None], [None], color=color, linestyle=linestyle_, marker=marker, s=300, edgecolor=edgecolor, ax=axs_Shots)
+                pitch.scatter([], [], color=color, linestyle=linestyle_, marker=marker, s=300, edgecolor=edgecolor, ax=axs_Shots)
             )
     
     fig_Shots.suptitle("Shots Map", fontsize=40, color='gold', y=.965, x=0.3)
