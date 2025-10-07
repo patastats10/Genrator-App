@@ -1283,7 +1283,7 @@ if uploaded_file:
     def draw_Shots_scatter(ax, playerShots):
         pitch.draw(ax=ax)
         added_labels = set()  # لتجنب تكرار الـ legend
-        playerShots = playerShots.dropna(subset=['Actions positions x', 'Actions positions y']).copy()
+        playerShots = playerShots.dropna(subset=['Actions positions x', 'Actions positions y'])
 
         for outcome, group in playerShots.groupby('Outcome'):
             for i, row in group.iterrows():
