@@ -1312,7 +1312,7 @@ if uploaded_file:
                         marker=mark,
                         color=color,
                         edgecolor=edgecolor,
-                        linestyle=linestyle_,
+                       # linestyle=linestyle_,
                         lw=1,
                         label=label_text,
                         zorder=4,
