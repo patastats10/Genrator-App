@@ -1497,14 +1497,14 @@ if uploaded_file:
         if outcome == "Goal":
             linestyle_ = linestyles.get(outcome, '-')
             marker_handles.append(
-                ax_Shots_on_frame.scatter([], [], c='g',  marker="d", s=300, edgecolor='w', )
+                axs_Shots.scatter([], [], c='g', linestyle=linestyle_, marker="d", s=300, edgecolor='w', )
             )
         else:
             linestyle_ = linestyles.get(outcome, '-')
             color = colors.get(outcome, 'none')
             edgecolor = edgecolors.get(outcome, 'none')
             marker_handles.append(
-                ax_Shots_on_frame.scatter([], [], color=color, linestyle=linestyle_, marker=marker, s=300, edgecolor=edgecolor, )
+                axs_Shots.scatter([], [], color=color, linestyle=linestyle_, marker=marker, s=300, edgecolor=edgecolor, )
             )
     
     
