@@ -1486,7 +1486,8 @@ if uploaded_file:
         )
 
     axs_Shots.legend(handles=marker_handles,
-                     loc='upper right',
+                     loc='upper center',
+                     bbox_to_anchor=(-2.55, -4.62),
                      fontsize=12,
                      frameon=False,
                      shadow=True,
