@@ -1231,7 +1231,7 @@ if uploaded_file:
     from mplsoccer import VerticalPitch
     import matplotlib.pyplot as plt
     from io import BytesIO
-    from IPython.display import Image, display
+    #from IPython.display import Image, display
     import matplotlib.colors as mcolors
     from matplotlib.patches import FancyArrowPatch
     from matplotlib.ticker import StrMethodFormatter
