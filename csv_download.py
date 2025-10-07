@@ -1493,35 +1493,40 @@ if uploaded_file:
     #fig_Shots.suptitle("Shots Map", fontsize=40, color='gold', y=.965, x=0.3)
     marker_handles = []
     for outcome, marker in markers.items():
-        # لو الماركر ده كرة من mplsoccer، نستخدم 'o' للـ legend
-        legend_marker = 'd' if marker == 'football' else marker
-        if marker == 'football':
-            face_color = 'g'
-            edge_color = 'w'
-            markersize = 12
+        if outcome == "Goal":
+            linestyle_ = linestyles.get(outcome, '-')
+            marker_handles.append(
+                ax_Shots_on_frame.scatter([], [], c='g', linestyle=linestyle_, marker="d", s=300, edgecolor='w', )
+            )
         else:
-            face_color = colors.get(outcome, 'white')
-            edge_color = edgecolors.get(outcome, 'black')
-            markersize = 12 
-        marker_handles.append(
-            Line2D([0], [0],
-                   marker=legend_marker,
-                   color='w',  # الخط مش ظاهر
-                   markerfacecolor=face_color,
-                   markeredgecolor=edge_color,
-                   markersize=markersize,
-                   linestyle=linestyle_,
-                   label=outcome)
-        )
+            linestyle_ = linestyles.get(outcome, '-')
+            color = colors.get(outcome, 'none')
+            edgecolor = edgecolors.get(outcome, 'none')
+            marker_handles.append(
+                ax_Shots_on_frame.scatter([], [], color=color, linestyle=linestyle_, marker=marker, s=300, edgecolor=edgecolor, )
+            )
+    
+    
+    plt.legend(
+        handles=marker_handles,
+        labels=['Goal','Blocked','Off T','Saved','Wayward','Post'],
+        loc='upper center',
+        ncol=1,
+        bbox_to_anchor=(.44, -0.05),
+        labelspacing=1.2,
+        fontsize=12,
+        frameon=False,
+        shadow=True
+    )
 
-    axs_Shots.legend(handles=marker_handles,
-                     loc='upper center',
-                     bbox_to_anchor=(0.45, -0.05),
-                     fontsize=12,
-                     frameon=False,
-                     labelspacing=1.2,
-                     shadow=True,
-                     ncol=1)
+    #axs_Shots.legend(handles=marker_handles,
+    #                 loc='upper center',
+    #                 bbox_to_anchor=(0.45, -0.05),
+    #                 fontsize=12,
+    #                 frameon=False,
+    #                 labelspacing=1.2,
+    #                 shadow=True,
+    #                 ncol=1)
 
     #plt.legend(
     #    handles=marker_handles,
