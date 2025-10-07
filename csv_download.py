@@ -824,7 +824,10 @@ if uploaded_file:
     # ================================
     complete_pass = len(playerPassGood)
     total_pass = len(playerPassGood) + len(playerPassBad)
-    pass_percentage = f'{round(100 * complete_pass / total_pass, 1)}%'
+    if total_pass == 0:
+        pass_percentage = "0%"
+    else:
+        pass_percentage = f'{round(100 * complete_pass / total_pass, 1)}%'
     KEY_pass = len(playerDataKeyPass)
     Assist_pass = len(playerAssist)
     Assist2nd_pass = len(player2ndAssist)
