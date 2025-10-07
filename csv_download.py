@@ -1468,21 +1468,29 @@ if uploaded_file:
     #fig_Shots.suptitle("Shots Map", fontsize=40, color='gold', y=.965, x=0.3)
     marker_handles = []
     for outcome, marker in markers.items():
+        # لو الماركر ده كرة من mplsoccer، نستخدم 'o' للـ legend
+        legend_marker = 'o' if marker == 'football' else marker
+    
         color = colors.get(outcome, 'white')
         edgecolor = edgecolors.get(outcome, 'black')
-        linestyle_ = linestyles.get(outcome, '-')
     
-        # استخدام Line2D dummy object بدل scatter فارغ
         marker_handles.append(
             Line2D([0], [0],
-                   marker=marker,
-                   color='w',  # لون الخط نفسه مش مهم
+                   marker=legend_marker,
+                   color='w',  # الخط مش ظاهر
                    markerfacecolor=color,
                    markeredgecolor=edgecolor,
                    markersize=12,
                    linestyle='None',
                    label=outcome)
         )
+
+    axs_Shots.legend(handles=marker_handles,
+                     loc='upper right',
+                     fontsize=12,
+                     frameon=False,
+                     shadow=True,
+                     ncol=1)
 
     #plt.legend(
     #    handles=marker_handles,
@@ -1495,12 +1503,7 @@ if uploaded_file:
     #    frameon=False,
     #   shadow=True
     #)
-    axs_Shots.legend(handles=marker_handles,
-                 loc='upper right',
-                 fontsize=12,
-                 frameon=False,
-                 shadow=True,
-                 ncol=1)
+
     fig_Shots.suptitle("Shots Map", fontsize=40, color='gold', y=.965, x=0.3)
     plt.show()
 
