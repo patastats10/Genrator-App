@@ -1278,59 +1278,61 @@ if uploaded_file:
     # 4. رسم خطوط التمريرات
     # ================================
     def draw_Shots_scatter(ax, playerShots):
-        pitch.draw(ax=ax)
-        added_labels = set()  # لتجنب تكرار الـ legend
-        
-        for outcome, group in playerShots.groupby('Outcome'):
-            for i, row in group.iterrows():
-                xg_value = row.get('xG', 0)
-                mark = markers.get(outcome, 'o')
-                label_text = labels.get(outcome, '-') if outcome not in added_labels else None
-                linestyle_ = linestyles.get(outcome, '---')
-                color = colors.get(outcome, 'none')
-                edgecolor = edgecolors.get(outcome, 'none')
-                
-                if mark == 'football':
-                    pitch.scatter(
-                        x=row['Actions positions x'],
-                        y=row['Actions positions y'],
-                        s=xg_value*800,
-                        hexcolor='w',
-                        #marker=mark,
-                        pentcolor='k',
-                        label=label_text,
-                        lw=1,
-                        zorder=4,
-                        ax=ax
-                    )
-                else:
-                    pitch.scatter(
-                        x=row['Actions positions x'],
-                        y=row['Actions positions y'],
-                        s=xg_value*800,
-                        edgecolor=edgecolor,
-                        marker=mark,
-                        color=color,
-                        label=label_text,
-                        linestyle=linestyle_,
-                        lw=1,
-                        zorder=4,
-                        ax=ax
-                    )
+    pitch.draw(ax=ax)
+    added_labels = set()  # لتجنب تكرار الـ legend
     
-                if pd.notna(row['Actions positions x End']) and pd.notna(row['Actions positions y End']):
-                    pitch.arrows(
-                        xstart=row['Actions positions x'] + .5,
-                        ystart=row['Actions positions y'],
-                        xend=row['Actions positions x End'],
-                        yend=row['Actions positions y End'],
-                        width=xg_value*20,
-                        color='lime',
-                        alpha=xg_value*2,
-                        ax=ax
-                    )
-            added_labels.add(outcome)
-    
+    for outcome, group in playerShots.groupby('Outcome'):
+        for i, row in group.iterrows():
+            xg_value = row.get('xG', 0)
+            mark = markers.get(outcome, 'o')
+            label_text = labels.get(outcome, '-') if outcome not in added_labels else None
+            linestyle_ = linestyles.get(outcome, '-')  # الخطوط العادية فقط للماركرز العادية
+            color = colors.get(outcome, 'none')
+            edgecolor = edgecolors.get(outcome, 'none')
+            
+            if mark == 'football':
+                # كرة القدم: لا يمكن تمرير color أو linestyle
+                pitch.scatter(
+                    x=row['Actions positions x'],
+                    y=row['Actions positions y'],
+                    s=xg_value*800,
+                    hexcolor='w',
+                    pentcolor='k',
+                    label=label_text,
+                    lw=1,
+                    zorder=4,
+                    ax=ax
+                )
+            else:
+                # ماركرات عادية: يمكن تمرير color, edgecolor, linestyle
+                pitch.scatter(
+                    x=row['Actions positions x'],
+                    y=row['Actions positions y'],
+                    s=xg_value*800,
+                    marker=mark,
+                    color=color,
+                    edgecolor=edgecolor,
+                    linestyle=linestyle_,
+                    lw=1,
+                    label=label_text,
+                    zorder=4,
+                    ax=ax
+                )
+
+            # رسم الأسهم إذا موجودة
+            if pd.notna(row.get('Actions positions x End')) and pd.notna(row.get('Actions positions y End')):
+                pitch.arrows(
+                    xstart=row['Actions positions x'] + 0.5,
+                    ystart=row['Actions positions y'],
+                    xend=row['Actions positions x End'],
+                    yend=row['Actions positions y End'],
+                    width=xg_value*20,
+                    color='lime',
+                    alpha=min(xg_value*2, 1),  # Alpha بين 0 و 1
+                    ax=ax
+                )
+        added_labels.add(outcome)
+
     draw_Shots_scatter(axs_Shots, playerShots)
     
     # ================================
