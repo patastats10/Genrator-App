@@ -1321,7 +1321,7 @@ if uploaded_file:
                         marker='d',
                         label=label_text,
                         lw=1,
-                        linestyle=linestyle_. 
+                        linestyle=linestyle_,
                         zorder=4,
                         ax=ax
                         )
