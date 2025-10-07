@@ -1492,11 +1492,12 @@ if uploaded_file:
     
     #fig_Shots.suptitle("Shots Map", fontsize=40, color='gold', y=.965, x=0.3)
     marker_handles = []
+    #linestyle_ = linestyles.get(outcome, '-')
     for outcome, marker in markers.items():
         if outcome == "Goal":
             linestyle_ = linestyles.get(outcome, '-')
             marker_handles.append(
-                ax_Shots_on_frame.scatter([], [], c='g', linestyle=linestyle_, marker="d", s=300, edgecolor='w', )
+                ax_Shots_on_frame.scatter([], [], c='g',  marker="d", s=300, edgecolor='w', )
             )
         else:
             linestyle_ = linestyles.get(outcome, '-')
