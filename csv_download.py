@@ -1295,18 +1295,36 @@ if uploaded_file:
                 edgecolor = edgecolors.get(outcome, 'none')
             
                 if mark == 'football':
-                    #     كرة القدم: لا يمكن تمرير color أو linestyle
-                    pitch.scatter(
-                    x=row['Actions positions x'],
-                    y=row['Actions positions y'],
-                    s=xg_value*800,
-                    hexcolor='w',
-                    pentcolor='k',
-                    label=label_text,
-                    lw=1,
-                    zorder=4,
-                    ax=ax
-                    )
+                    
+                    try:
+                        
+                        pitch.scatter(
+                        x=row['Actions positions x'],
+                        y=row['Actions positions y'],
+                        s=xg_value*800 if pd.notna(xg_value) else 400,
+                        hexcolor='w',
+                        pentcolor='k',
+                        label=label_text,
+                        lw=1,
+                        zorder=4,
+                        ax=ax
+                        )
+                    except Exception as e:
+                        print(f"⚠️ Football marker error for row {i}: {e}")
+                        # fallback marker to avoid crash
+                        pitch.scatter(
+                        x=row['Actions positions x'],
+                        y=row['Actions positions y'],
+                        s=xg_value*800 if pd.notna(xg_value) else 400,
+                        color='g',
+                        edgecolor='w',
+                        marker='d',
+                        label=label_text,
+                        lw=1,
+                        zorder=4,
+                        ax=ax
+                        )
+
                 else:
                     # ماركرات عادية: يمكن تمرير color, edgecolor, linestyle
                     pitch.scatter(
