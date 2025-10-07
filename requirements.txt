@@ -4,9 +4,8 @@ numpy
 matplotlib
 Pillow
 reportlab
-ast
 mplsoccer
 scipy
-re
+joblib
 plottable
-joblib 
+
