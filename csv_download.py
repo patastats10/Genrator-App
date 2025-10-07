@@ -1449,35 +1449,58 @@ if uploaded_file:
     # ================================
     # 11. إعداد Legend
     # ================================
+    #marker_handles = []
+    #for outcome, marker in markers.items():
+     #   if outcome == "Goal":
+     #      linestyle_ = linestyles.get(outcome, '-')
+     #       marker_handles.append(
+     #          pitch.scatter([], [], color='w', edgecolor='k', linestyle=linestyle_, marker=marker, s=300,  ax=axs_Shots)
+     #       )
+     #   else:
+     #       linestyle_ = linestyles.get(outcome, '-')
+     #       color = colors.get(outcome, 'none')
+     #       edgecolor = edgecolors.get(outcome, 'none')
+     #       marker_handles.append(
+     #           pitch.scatter([], [], color=color, linestyle=linestyle_, marker=marker, s=300, edgecolor=edgecolor, ax=axs_Shots)
+     #       )
+    
+    #fig_Shots.suptitle("Shots Map", fontsize=40, color='gold', y=.965, x=0.3)
     marker_handles = []
     for outcome, marker in markers.items():
-        if outcome == "Goal":
-            linestyle_ = linestyles.get(outcome, '-')
-            marker_handles.append(
-                pitch.scatter([], [], color='w', edgecolor='k', linestyle=linestyle_, marker=marker, s=300,  ax=axs_Shots)
-            )
-        else:
-            linestyle_ = linestyles.get(outcome, '-')
-            color = colors.get(outcome, 'none')
-            edgecolor = edgecolors.get(outcome, 'none')
-            marker_handles.append(
-                pitch.scatter([], [], color=color, linestyle=linestyle_, marker=marker, s=300, edgecolor=edgecolor, ax=axs_Shots)
-            )
+        color = colors.get(outcome, 'white')
+        edgecolor = edgecolors.get(outcome, 'black')
+        linestyle_ = linestyles.get(outcome, '-')
     
+        # استخدام Line2D dummy object بدل scatter فارغ
+        marker_handles.append(
+            Line2D([0], [0],
+                   marker=marker,
+                   color='w',  # لون الخط نفسه مش مهم
+                   markerfacecolor=color,
+                   markeredgecolor=edgecolor,
+                   markersize=12,
+                   linestyle='None',
+                   label=outcome)
+        )
+
+    #plt.legend(
+    #    handles=marker_handles,
+    #   labels=['Goal','Blocked','Off T','Saved','Wayward','Post'],
+    #    loc='upper center',
+    #    ncol=1,
+    #   bbox_to_anchor=(-2.55, -4.62),
+    #    labelspacing=1.2,
+    #    fontsize=12,
+    #    frameon=False,
+    #   shadow=True
+    #)
+    axs_Shots.legend(handles=marker_handles,
+                 loc='upper right',
+                 fontsize=12,
+                 frameon=False,
+                 shadow=True,
+                 ncol=1)
     fig_Shots.suptitle("Shots Map", fontsize=40, color='gold', y=.965, x=0.3)
-    
-    plt.legend(
-        handles=marker_handles,
-        labels=['Goal','Blocked','Off T','Saved','Wayward','Post'],
-        loc='upper center',
-        ncol=1,
-        bbox_to_anchor=(-2.55, -4.62),
-        labelspacing=1.2,
-        fontsize=12,
-        frameon=False,
-        shadow=True
-    )
-    
     plt.show()
 
     #st.pyplot(fig_Shots)
