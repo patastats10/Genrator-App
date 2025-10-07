@@ -8,6 +8,6 @@ mplsoccer
 scipy
 joblib
 plottable
-svglib
-cairosvg
+#svglib
+#cairosvg
 scikit-learn
