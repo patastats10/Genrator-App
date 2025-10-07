@@ -1490,7 +1490,7 @@ if uploaded_file:
                      bbox_to_anchor=(0.45, -0.05),
                      fontsize=12,
                      frameon=False,
-                     labelspacing=1.2,,
+                     labelspacing=1.2,
                      shadow=True,
                      ncol=1)
 
