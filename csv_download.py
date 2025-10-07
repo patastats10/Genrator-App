@@ -1497,17 +1497,18 @@ if uploaded_file:
         if marker == 'football':
             face_color = 'g'
             edge_color = 'w'
+            markersize = 12
         else:
             face_color = colors.get(outcome, 'white')
             edge_color = edgecolors.get(outcome, 'black')
-    
+            markersize = 12 
         marker_handles.append(
             Line2D([0], [0],
                    marker=legend_marker,
                    color='w',  # الخط مش ظاهر
                    markerfacecolor=face_color,
                    markeredgecolor=edge_color,
-                   markersize=12,
+                   markersize=markersize,
                    linestyle='None',
                    label=outcome)
         )
