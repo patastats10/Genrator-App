@@ -10,3 +10,4 @@ joblib
 plottable
 svglib
 cairosvg
+scikit-learn
