@@ -1295,7 +1295,7 @@ if uploaded_file:
                         x=row['Actions positions x'],
                         y=row['Actions positions y'],
                         s=xg_value*800,
-                        c='w',
+                        color='w',
                         marker=mark,
                         edgecolor='k',
                         label=label_text,
