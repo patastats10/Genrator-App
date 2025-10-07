@@ -1454,7 +1454,7 @@ if uploaded_file:
         if outcome == "Goal":
             linestyle_ = linestyles.get(outcome, '-')
             marker_handles.append(
-                pitch.scatter([], [], c='w', linestyle=linestyle_, marker=marker, s=300, edgecolor='k', ax=axs_Shots)
+                pitch.scatter([], [], facecolor='w', linestyle=linestyle_, marker=marker, s=300, edgecolor='k', ax=axs_Shots)
             )
         else:
             linestyle_ = linestyles.get(outcome, '-')
