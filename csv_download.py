@@ -1493,17 +1493,20 @@ if uploaded_file:
     marker_handles = []
     for outcome, marker in markers.items():
         # لو الماركر ده كرة من mplsoccer، نستخدم 'o' للـ legend
-        legend_marker = 'o' if marker == 'football' else marker
-    
-        color = colors.get(outcome, 'white')
-        edgecolor = edgecolors.get(outcome, 'black')
+        legend_marker = 'd' if marker == 'football' else marker
+        if marker == 'football':
+            face_color = 'g'
+            edge_color = 'w'
+        else:
+            face_color = colors.get(outcome, 'white')
+            edge_color = edgecolors.get(outcome, 'black')
     
         marker_handles.append(
             Line2D([0], [0],
                    marker=legend_marker,
                    color='w',  # الخط مش ظاهر
-                   markerfacecolor=color,
-                   markeredgecolor=edgecolor,
+                   markerfacecolor=face_color,
+                   markeredgecolor=edge_color,
                    markersize=12,
                    linestyle='None',
                    label=outcome)
