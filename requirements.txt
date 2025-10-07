@@ -1,0 +1,12 @@
+streamlit
+pandas
+numpy
+matplotlib
+Pillow
+reportlab
+ast
+mplsoccer
+scipy
+re
+plottable
+joblib 
