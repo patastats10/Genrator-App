@@ -11,7 +11,7 @@ from io import BytesIO
 import matplotlib.pyplot as plt
 import time
 from reportlab.graphics import renderPDF
-from svglib.svglib import svg2rlg
+#from svglib.svglib import svg2rlg
 from scipy.interpolate import make_interp_spline, BSpline
 
 import matplotlib
