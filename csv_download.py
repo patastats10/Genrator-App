@@ -1321,6 +1321,7 @@ if uploaded_file:
                         marker='d',
                         label=label_text,
                         lw=1,
+                        linestyle=linestyle_. 
                         zorder=4,
                         ax=ax
                         )
@@ -1509,7 +1510,7 @@ if uploaded_file:
                    markerfacecolor=face_color,
                    markeredgecolor=edge_color,
                    markersize=markersize,
-                   linestyle='None',
+                   linestyle=linestyle_,
                    label=outcome)
         )
 
