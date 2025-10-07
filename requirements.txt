@@ -11,3 +11,4 @@ plottable
 #svglib
 #cairosvg
 scikit-learn
+highlight_text 
