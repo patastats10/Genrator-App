@@ -132,7 +132,7 @@ if uploaded_file:
        dataCross,
        dataCrossGood,
        dataThroughBall
-    )= data_pre_procces(uploaded_file)
+    )= data_pre_procces(uploaded_file,start_side)
     st.dataframe(data.head())
 # ================== Player Avg Positions & Total Actions =================
 
