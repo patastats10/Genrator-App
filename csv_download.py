@@ -102,6 +102,13 @@ def detect_start_side(data, start_side):
 st.set_page_config(page_title="Dynamic Player Analysis", layout="wide")
 st.title("📊 رفع TSV وتحليلات اللاعبين ديناميكية")
 
+start_side = st.radio(
+        "اختر الاتجاه الذي بدأ منه الفريق:",
+        options=["left", "right"],
+        index=0,
+        horizontal=True
+    )
+
 # ================= File Upload =================
 uploaded_file = st.file_uploader("اختر ملف TSV (UTF-16)", type=["csv"])
 if uploaded_file:
@@ -118,12 +125,6 @@ if uploaded_file:
 
     # ================= Basic Processing =================
     st.dataframe(df_1)
-    start_side = st.radio(
-        "اختر الاتجاه الذي بدأ منه الفريق:",
-        options=["left", "right"],
-        index=0,
-        horizontal=True
-    )
 
     ##st.write(f"✅ الفريق بدأ من: **{start_side.upper()}**")
 
