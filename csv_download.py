@@ -182,7 +182,7 @@ if uploaded_file:
     )= data_pre_procces(uploaded_file,start_side)
     st.dataframe(data.head())
     df_1 = detect_start_side(data, start_side) ##
-     st.dataframe(df_1) ##
+    st.dataframe(df_1) ##
 
 # ================== Player Avg Positions & Total Actions =================
 
