@@ -286,7 +286,7 @@ def process_and_predict_xG(data, model_path='IQStats_Xg.joblib'):
 
 
 ####### start def 
-def data_pre_procces(actionsFileDir):
+def data_pre_procces(actionsFileDir,start_side):
     
     actionsFileDir.seek(0)
     data = pd.read_csv(actionsFileDir, delimiter='\t', encoding="utf-16") 
