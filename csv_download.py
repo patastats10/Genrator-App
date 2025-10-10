@@ -117,7 +117,7 @@ if uploaded_file:
         st.stop()
 
     # ================= Basic Processing =================
-    st.dataframe(df_1))
+    st.dataframe(df_1)
     start_side = st.radio(
         "اختر الاتجاه الذي بدأ منه الفريق:",
         options=["left", "right"],
