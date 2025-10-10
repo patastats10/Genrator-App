@@ -51,7 +51,53 @@ from Data_process import (
     Calculates_progressive_pass,
     process_and_predict_xG
 )
+def detect_start_side(data, start_side):
+    halfs = ['1st Half', '2nd Half']
 
+    # ==================================================
+    # 1️⃣ تحديد الاتجاه من الحارس (لو موجود)
+    # ==================================================
+    goalkeeper_events = data[data['Event'] == 'Goal Keeper']
+
+    if not goalkeeper_events.empty:
+        first_gk_x = goalkeeper_events['Actions positions x'].iloc[0]
+        if first_gk_x < 60:
+            halfsToChangeXY = [halfs[1]]
+            st.success("✅ الفريق بدأ من اليسار — سيتم قلب الشوط الثاني.")
+        else:
+            halfsToChangeXY = [halfs[0]]
+            st.success("✅ الفريق بدأ من اليمين — سيتم قلب الشوط الأول.")
+    else:
+        # ==================================================
+        # 2️⃣ الاتجاه اليدوي كخطة بديلة
+        # ==================================================
+        st.warning("⚠️ لا يوجد حدث لحارس المرمى، سيتم استخدام الاتجاه اليدوي.")
+
+        if start_side.lower() == "left":
+            halfsToChangeXY = [halfs[1]]
+            st.info("➡️ الفريق بدأ من اليسار — سيتم قلب الشوط الثاني.")
+        elif start_side.lower() == "right":
+            halfsToChangeXY = [halfs[0]]
+            st.info("➡️ الفريق بدأ من اليمين — سيتم قلب الشوط الأول.")
+        else:
+            halfsToChangeXY = [halfs[1]]
+            st.error("⚠️ اتجاه غير معروف، تم استخدام الافتراضي (left): سيتم قلب الشوط الثاني.")
+
+    # ==================================================
+    # 3️⃣ قلب الاتجاهات
+    # ==================================================
+    def flip_coordinates(row):
+        if row['Half'] in halfsToChangeXY:
+            row['Actions positions x'] = 120 - row['Actions positions x']
+            row['Actions positions y'] = 80 - row['Actions positions y']
+            row['Actions positions x End'] = 120 - row['Actions positions x End']
+            row['Actions positions y End'] = 80 - row['Actions positions y End']
+        return row
+
+    data = data.apply(flip_coordinates, axis=1)
+
+    st.success("✅ تم تحديث الاتجاهات بنجاح.")
+    return data
 # ================= Streamlit Config =================
 st.set_page_config(page_title="Dynamic Player Analysis", layout="wide")
 st.title("📊 رفع TSV وتحليلات اللاعبين ديناميكية")
@@ -61,6 +107,7 @@ uploaded_file = st.file_uploader("اختر ملف TSV (UTF-16)", type=["csv"])
 if uploaded_file:
     try:
         df_ = pd.read_csv(uploaded_file, sep='\t', encoding='utf-16')
+        df__ = detect_start_side(df_, start_side)
         if df_.empty:
             st.error("الملف فارغ")
             st.stop()
@@ -70,7 +117,7 @@ if uploaded_file:
         st.stop()
 
     # ================= Basic Processing =================
-    st.dataframe(df_.head())
+    st.dataframe(df__))
     start_side = st.radio(
         "اختر الاتجاه الذي بدأ منه الفريق:",
         options=["left", "right"],
