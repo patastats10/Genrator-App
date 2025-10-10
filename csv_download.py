@@ -51,6 +51,8 @@ from Data_process import (
     Calculates_progressive_pass,
     process_and_predict_xG
 )
+halfs = ['1st Half', '2nd Half']
+
 def detect_start_side(data, start_side):
     halfs = ['1st Half', '2nd Half']
 
