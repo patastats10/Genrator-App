@@ -78,7 +78,7 @@ if uploaded_file:
         horizontal=True
     )
 
-    #st.write(f"✅ الفريق بدأ من: **{start_side.upper()}**")
+    ##st.write(f"✅ الفريق بدأ من: **{start_side.upper()}**")
 
 
 
