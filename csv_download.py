@@ -63,10 +63,10 @@ def detect_start_side(data, start_side):
         first_gk_x = goalkeeper_events['Actions positions x'].iloc[0]
         if first_gk_x < 60:
             halfsToChangeXY = [halfs[1]]
-            st.success("✅ الفريق بدأ من اليسار — سيتم قلب الشوط الثاني.")
+            st.success("✅  الفريق بدأ من اليسار — سيتم قلب الشوط الثاني بناء على الحارس.")
         else:
             halfsToChangeXY = [halfs[0]]
-            st.success("✅ الفريق بدأ من اليمين — سيتم قلب الشوط الأول.")
+            st.success("✅ الفريق بدأ من اليمين — سيتم قلب الشوط الأول. بناء على الحارس")
     else:
         # ==================================================
         # 2️⃣ الاتجاه اليدوي كخطة بديلة
