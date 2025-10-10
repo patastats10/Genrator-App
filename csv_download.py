@@ -114,7 +114,7 @@ uploaded_file = st.file_uploader("اختر ملف TSV (UTF-16)", type=["csv"])
 if uploaded_file:
     try:
         df_ = pd.read_csv(uploaded_file, sep='\t', encoding='utf-16')
-        df_1 = detect_start_side(df_, start_side)
+        
         if df_.empty:
             st.error("الملف فارغ")
             st.stop()
@@ -124,7 +124,6 @@ if uploaded_file:
         st.stop()
 
     # ================= Basic Processing =================
-    st.dataframe(df_1)
 
     ##st.write(f"✅ الفريق بدأ من: **{start_side.upper()}**")
 
@@ -182,6 +181,9 @@ if uploaded_file:
        dataThroughBall
     )= data_pre_procces(uploaded_file,start_side)
     st.dataframe(data.head())
+    df_1 = detect_start_side(data, start_side) ##
+     st.dataframe(df_1) ##
+
 # ================== Player Avg Positions & Total Actions =================
 
     playersNames = sorted(data["Player 1"].dropna().unique())
