@@ -2182,7 +2182,7 @@ if st.button("عرض التقرير", key="show_report"):
             with tab3:
                 st.subheader("📊 إحصائيات عامة")
                 try:
-                    st.dataframe(PassesTable)
+                    st.pyplot(fig)
                 except:
                     st.info("🚫 لا توجد إحصائيات عامة.")
 
@@ -2201,6 +2201,7 @@ if st.button("تحميل التقرير PDF"):
     pdf_path = f"PATA_STATS_Player_Report_{playerName}.pdf"
     with PdfPages(pdf_path) as pdf:
         pdf.savefig(fig1)
+        pdf.savefig(fig)
         pdf.savefig(fig_PassTable)
         pdf.savefig(fig_passes)
         pdf.savefig(fig_ShotTable)
