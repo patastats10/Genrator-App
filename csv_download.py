@@ -107,7 +107,7 @@ uploaded_file = st.file_uploader("اختر ملف TSV (UTF-16)", type=["csv"])
 if uploaded_file:
     try:
         df_ = pd.read_csv(uploaded_file, sep='\t', encoding='utf-16')
-        df__ = detect_start_side(df_, start_side)
+        df_1 = detect_start_side(df_, start_side)
         if df_.empty:
             st.error("الملف فارغ")
             st.stop()
@@ -117,7 +117,7 @@ if uploaded_file:
         st.stop()
 
     # ================= Basic Processing =================
-    st.dataframe(df__))
+    st.dataframe(df_1))
     start_side = st.radio(
         "اختر الاتجاه الذي بدأ منه الفريق:",
         options=["left", "right"],
