@@ -299,7 +299,7 @@ if uploaded_file:
     player_data = data[data['Player 1']==selected_player]
     
     st.subheader(f"📋 بيانات اللاعب   {selected_player}")
-    st.dataframe(player_data.head())
+    st.dataframe(player_data[player_data['Half']==halfs[0]])
 
     playerName = selected_player
     # ================== Example Analyses =================
