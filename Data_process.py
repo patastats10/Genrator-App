@@ -317,22 +317,76 @@ def data_pre_procces(actionsFileDir):
     
     data = data.reset_index()
         # تعريف الشوطين
-    halfs = ['1st Half', '2nd Half']
+   # halfs = ['1st Half', '2nd Half']
     
-    if(data[data['Event']=='Goal Keeper']['Actions positions x'].iloc[0]<60):
-        halfsToChangeXY = [halfs[1],halfs[0]]
+    #if(data[data['Event']=='Goal Keeper']['Actions positions x'].iloc[0]<60):
+    #    halfsToChangeXY = [halfs[1],halfs[0]]
+    #else:
+    #    halfsToChangeXY = [halfs[0],halfs[1]]
+    #""" change x and y position """
+    #temp = data[(data['Half']==halfsToChangeXY[0])]
+    #idxS = temp.head(1).index[0]
+    #idxE = temp.tail(1).index[0]
+    #for i in range(idxS, idxE+1):
+    #    data.loc[i, ['Actions positions x']] = 120-data.loc[i, ['Actions positions x']]
+    #    data.loc[i, ['Actions positions y']] = 80 -data.loc[i, ['Actions positions y']]
+    #    data.loc[i, ['Actions positions x End']] = 120-data.loc[i, ['Actions positions x End']]
+    #    data.loc[i, ['Actions positions y End']] = 80 -data.loc[i, ['Actions positions y End']]
+
+    
+    # 🧭 الاتجاه اليدوي في حالة عدم وجود حارس
+    # يمكن أن يكون "left" أو "right"
+    start_side = start_side  # ← غيّر هنا حسب الفريق بدأ منين
+
+    halfs = ['1st Half', '2nd Half']
+
+    # ==================================================
+    # 1️⃣ تحديد الاتجاه من الحارس (لو موجود)
+    # ==================================================
+    goalkeeper_events = data[data['Event'] == 'Goal Keeper']
+
+    if not goalkeeper_events.empty:
+        first_gk_x = goalkeeper_events['Actions positions x'].iloc[0]
+        if first_gk_x < 60:
+            # بدأ من اليسار → نقلب الشوط الثاني
+            halfsToChangeXY = [halfs[1]]
+            print("✅ الفريق بدأ من اليسار — سيتم قلب الشوط الثاني.")
+        else:
+            # بدأ من اليمين → نقلب الشوط الأول
+            halfsToChangeXY = [halfs[0]]
+            print("✅ الفريق بدأ من اليمين — سيتم قلب الشوط الأول.")
     else:
-        halfsToChangeXY = [halfs[0],halfs[1]]
-    """ change x and y position """
-    temp = data[(data['Half']==halfsToChangeXY[0])]
-    idxS = temp.head(1).index[0]
-    idxE = temp.tail(1).index[0]
-    for i in range(idxS, idxE+1):
-        data.loc[i, ['Actions positions x']] = 120-data.loc[i, ['Actions positions x']]
-        data.loc[i, ['Actions positions y']] = 80 -data.loc[i, ['Actions positions y']]
-        data.loc[i, ['Actions positions x End']] = 120-data.loc[i, ['Actions positions x End']]
-        data.loc[i, ['Actions positions y End']] = 80 -data.loc[i, ['Actions positions y End']]
-        
+        # ==================================================
+        # 2️⃣ الاتجاه اليدوي كخطة بديلة
+        # ==================================================
+        print("⚠️ لا يوجد حدث لحارس المرمى، سيتم استخدام الاتجاه اليدوي.")
+
+        if start_side.lower() == "left":
+            # نفس منطق الحارس: لو بدأ من اليسار → نقلب الشوط الثاني
+            halfsToChangeXY = [halfs[1]]
+            print("➡️ الفريق بدأ من اليسار — سيتم قلب الشوط الثاني.")
+        elif start_side.lower() == "right":
+            # لو بدأ من اليمين → نقلب الشوط الأول
+            halfsToChangeXY = [halfs[0]]
+            print("➡️ الفريق بدأ من اليمين — سيتم قلب الشوط الأول.")
+        else:
+            halfsToChangeXY = [halfs[1]]
+            print("⚠️ اتجاه غير معروف، تم استخدام الافتراضي (left): سيتم قلب الشوط الثاني.")
+
+    # ==================================================
+    # 3️⃣ قلب الاتجاهات باستخدام apply()
+    # ==================================================
+    def flip_coordinates(row):
+        if row['Half'] in halfsToChangeXY:
+            row['Actions positions x'] = 120 - row['Actions positions x']
+            row['Actions positions y'] = 80 - row['Actions positions y']
+            row['Actions positions x End'] = 120 - row['Actions positions x End']
+            row['Actions positions y End'] = 80 - row['Actions positions y End']
+        return row
+
+    data = data.apply(flip_coordinates, axis=1)
+
+    
     data['Actions Pos Length'] = np.sqrt(
         (data['Actions positions x End'] - data['Actions positions x'])**2 +
         (data['Actions positions y End'] - data['Actions positions y'])**2
