@@ -118,8 +118,11 @@ def getAssist(data, dataShot):
 
 def getSecondAssist(data, dataShot):
     secondAssistIndex = []
-
-    for i in dataShot['index']:
+    
+    # نخلي dataShot فيها التسديدات اللي جابت جوان بس
+    goals = dataShot[dataShot['Outcome'] == 'Goal']
+    
+    for i in goals['index']:
         pass_found = 0  # counter to track passes before goal
         for j in range(1, 20):  # نوسع شوية عشان نلاقي 2 باس
             prevAction = data.iloc[i - j]
