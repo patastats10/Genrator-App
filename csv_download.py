@@ -71,6 +71,17 @@ if uploaded_file:
 
     # ================= Basic Processing =================
     st.dataframe(df_.head())
+    start_side = st.radio(
+        "اختر الاتجاه الذي بدأ منه الفريق:",
+        options=["left", "right"],
+        index=0,
+        horizontal=True
+    )
+
+    #st.write(f"✅ الفريق بدأ من: **{start_side.upper()}**")
+
+
+
     from Data_process import data_pre_procces
     (
        data,
