@@ -300,7 +300,8 @@ if uploaded_file:
     
     st.subheader(f"📋 بيانات اللاعب   {selected_player}")
     st.dataframe(player_data[player_data['Half']==halfs[0]])
-
+    st.dataframe(player_data[player_data['Half']==halfs[1]])
+    
     playerName = selected_player
     # ================== Example Analyses =================
     # افترض أن playerName مأخوذ من اختيار المستخدم
