@@ -2840,6 +2840,7 @@ import base64
 import streamlit as st
 from PIL import Image
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
 
 # ===== تقسيم الصفحة إلى 3 أعمدة =====
 col1, col2, col3 = st.columns([1, 2, 1])  # العمود الأوسط أوسع قليلاً
@@ -2902,13 +2903,14 @@ if st.button("عرض التقرير", key="show_report"):
         st.error(f"حدث خطأ أثناء عرض التقرير: {e}")
 # ===================== زر تحميل PDF =====================
 if st.button("تحميل التقرير PDF"):
+    
     # إنشاء نسخة PDF للتقرير
     img = Image.open(r"WhatsApp Image 2025-09-04 at 01.18.28_529ef486.jpg")
     fig1, ax1 = plt.subplots(figsize=(16, 9))
     ax1.imshow(img)
     ax1.axis('off')
 
-    pdf_path = f"PATA_STATS_Player_Report_{playerName}.pdf"
+    pdf_path = f"PATA_STATS_Player_Report_{selected_player}.pdf"
     with PdfPages(pdf_path) as pdf:
         pdf.savefig(fig1)
         pdf.savefig(fig)
