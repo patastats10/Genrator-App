@@ -610,7 +610,7 @@ def data_pre_procces(actionsFileDir,start_side):
         dataClearance,
         dataCross,
         dataCrossGood,
-        dataThroughBallو
+        dataThroughBall,
         dataError
     )
 
