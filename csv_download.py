@@ -2600,7 +2600,7 @@ if uploaded_file:
                         y=interception['Actions positions y'],
                         s=150,
                         c='gold',
-                        marker="h",
+                        marker="+",
                         edgecolor='gold',
                         lw=1.5,
                         zorder=4,
@@ -2746,7 +2746,7 @@ if uploaded_file:
     
     
     # تعريف الـ marker لكل Outcome
-    markers = {'Tackle Won':'^','Aerial Won':'d','interception':'h','Clearance':'s','Recovered Ball':'o','Lost Ball':'o',"Error":'x'}
+    markers = {'Tackle Won':'^','Aerial Won':'d','interception':'+','Clearance':'s','Recovered Ball':'o','Lost Ball':'o',"Error":'x'}
     
     
     
