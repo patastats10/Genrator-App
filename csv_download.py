@@ -2919,6 +2919,33 @@ if uploaded_file:
     
     plt.show()
 
+    import matplotlib.pyplot as plt
+    import matplotlib.image as mpimg
+    
+    # تحميل الصورة
+    
+    
+    fig1, ax = plt.subplots(figsize=(16, 9))
+    ax.axis('off')
+    
+    # ====== عرض الصورة فى الثلث الأعلى ======
+    # figimage بيرسم الصورة مباشرة على الشكل (مش داخل المحور)
+    # alpha للتحكم في الشفافية (اختياري)
+    fig1.figimage(img, xo=fig.bbox.xmax * 0.3, yo=fig.bbox.ymax * 0.35, alpha=1, zorder=2)
+    
+    # ===== إعداد النصوص =====
+    player_name = playerName.split('.', 1)[1] if '.' in playerName else playerName
+    match_info = f"{dataPressure['Team'].dropna().unique()[0]} Vs {dataPressure['Opposition'].dropna().unique()[0]}"
+    match_date = f"{dataPressure['Match Date'].dropna().unique()[0]}"
+    match_date = datetime.strptime(match_date, "%m/%d/%Y").strftime("%d %b %Y")
+    # ===== كتابة النصوص =====
+    fig1.text(0.5, 0.35, "Player Report", ha='center', va='center', fontsize=30, fontweight='bold', color='black',zorder=3)
+    fig1.text(0.5, 0.25, player_name, ha='center', va='center', fontsize=22, fontweight='bold', color='Gold')
+    fig1.text(0.5, 0.18, match_info, ha='center', va='center', fontsize=14, color='gray')
+    fig1.text(0.5, 0.12, match_date, ha='center', va='center', fontsize=13, color='dimgray')
+    
+    plt.show()
+
 # ===================== زر عرض التقرير =====================
 #if st.button("عرض التقرير"):
 #    # هنا ضع الكود اللي يعالج بيانات اللاعب ويرسم جميع الأشكال
@@ -3013,11 +3040,7 @@ if st.button("عرض التقرير", key="show_report"):
 # ===================== زر تحميل PDF =====================
 if st.button("تحميل التقرير PDF"):
     
-    # إنشاء نسخة PDF للتقرير
-    img = Image.open(r"WhatsApp Image 2025-09-04 at 01.18.28_529ef486.jpg")
-    fig1, ax1 = plt.subplots(figsize=(16, 9))
-    ax1.imshow(img)
-    ax1.axis('off')
+    
 
     pdf_path = f"PATA_STATS_Player_Report_{selected_player}.pdf"
     with PdfPages(pdf_path) as pdf:
