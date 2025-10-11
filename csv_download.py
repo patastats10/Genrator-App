@@ -401,7 +401,7 @@ if uploaded_file:
     PassesTable = addTableRow(PassesTable,
                             actions1=dP[mask],
                             actions1Good=dPG[maskG],
-                            rowName='    into the Final 3rd / accurate', nSpaces=12)
+                            rowName='    into the Att 3rd / accurate', nSpaces=12)
     
     """ Cross / Accurate Both Halfs """
     PassesTable = addTableRow(PassesTable,
@@ -2193,10 +2193,10 @@ if uploaded_file:
 
     """ TACKLES  IN Mid 3rd  / Won"""
     dP = dataTackle[dataTackle['Player 1']==playerName]
-    mask =  dP['Actions positions x'] <= 80
+    mask = (dP['Actions positions x'] > 40) & (dP['Actions positions x'] <= 80)
 
     dPG = dataTackleWon[dataTackleWon['Player 1']==playerName]
-    maskG = dPG['Actions positions x'] <= 80
+    maskG = (dPG['Actions positions x'] > 40) & (dPG['Actions positions x'] <= 80)
 
     DefenseTable = addTableRow(DefenseTable,
                             actions1=dP[mask],
@@ -2598,11 +2598,11 @@ if uploaded_file:
         pitch.scatter(
                         x=interception['Actions positions x'],
                         y=interception['Actions positions y'],
-                        s=150,
+                        s=200,
                         c='gold',
                         marker="+",
                         edgecolor='gold',
-                        lw=1.5,
+                        lw=2,
                         zorder=4,
                         ax=ax)
         pitch.scatter(
@@ -2747,7 +2747,8 @@ if uploaded_file:
     
     # تعريف الـ marker لكل Outcome
     markers = {'Tackle Won':'^','Aerial Won':'d','interception':'+','Clearance':'s','Recovered Ball':'o','Lost Ball':'o',"Error":'x'}
-    
+
+    lws = {'interception':2}
     
     
     
@@ -2761,8 +2762,9 @@ if uploaded_file:
             linestyle_ = linestyles.get(outcome, '-')
             color = colors.get(outcome, 'none')
             edgecolor = edgecolors.get(outcome, 'none')
+            lw = lws.get(outcome,1.5)
             marker_handles.append(
-                axs_defense[0].scatter([], [], color=color,  marker=marker, s=200, edgecolor=edgecolor,lw=1.5 )
+                axs_defense[0].scatter([], [], color=color,  marker=marker, s=200, edgecolor=edgecolor,lw=lw )
             )
     
     
