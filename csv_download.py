@@ -2873,8 +2873,14 @@ if uploaded_file:
     # رسم الأفعال السيئة
     # رسم heatmap ناعمة (بدون مربعات)
     
-    x = PressurPlayer['Actions positions x']
-    y = PressurPlayer['Actions positions y']
+    
+    x = np.array(PressurPlayer['Actions positions x'])
+    y = np.array(PressurPlayer['Actions positions y'])
+
+    # 🔹 تنظيف البيانات (إزالة NaN و∞)
+    mask = ~np.isnan(x) & ~np.isnan(y) & np.isfinite(x) & np.isfinite(y)
+    x, y = x[mask], y[mask]
+
     
     # ===============================
     # 🔥 إنشاء الهيت ماب متوافقة مع الاتجاه الرأسي
