@@ -2905,7 +2905,7 @@ if uploaded_file:
         )
     
     
-    pitch.inset_image(60.5, 45, img, height=70, alpha=.5, ax=ax_pressing, zorder=-1)
+    pitch.inset_image(60, 42, img, height=70, alpha=.42, ax=ax_pressing, zorder=-1)
     pitch.inset_image(135, 130, img, height=35, alpha=1, ax=ax_pressing, zorder=1)
     
     
