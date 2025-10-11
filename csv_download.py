@@ -112,7 +112,7 @@ start_side = st.radio(
     )
 
 # ================= File Upload =================
-uploaded_file = st.file_uploader("اختر ملف TSV (UTF-16)", type=["csv"])
+uploaded_file = st.file_uploader("اختر ملف CSV (UTF-16)", type=["csv"])
 if uploaded_file:
     try:
         df_ = pd.read_csv(uploaded_file, sep='\t', encoding='utf-16')
@@ -353,14 +353,14 @@ if uploaded_file:
     
     """ progressive PASSES / into the box Both Halfs """
     dP = dataprogpass[dataprogpass['Player 1']==playerName]
-    mask = (dP['Actions positions x End'] >= 103.5) & \
-           (dP['Actions positions y End'] >= 19.9) & \
-           (dP['Actions positions y End'] <= 80-19.9)
+    mask = (dP['Actions positions x End'] >= 102) & \
+           (dP['Actions positions y End'] >= 22) & \
+           (dP['Actions positions y End'] <= 80-22)
     
     dPG = dataprogpassGood[dataprogpassGood['Player 1']==playerName]
-    maskG = (dPG['Actions positions x End'] >= 103.5) & \
-           (dPG['Actions positions y End'] >= 19.9) & \
-           (dPG['Actions positions y End'] <= 80-19.9)
+    maskG = (dPG['Actions positions x End'] >= 102) & \
+           (dPG['Actions positions y End'] >= 22) & \
+           (dPG['Actions positions y End'] <= 80-22)
     
     PassesTable = addTableRow(PassesTable,
                             actions1=dP[mask],
@@ -376,14 +376,14 @@ if uploaded_file:
     
     """ PASSES / into the box Both Halfs """
     dP = dataPass[dataPass['Player 1']==playerName]
-    mask = (dP['Actions positions x End'] >= 103.5) & \
-           (dP['Actions positions y End'] >= 19.9) & \
-           (dP['Actions positions y End'] <= 80-19.9)
+    mask = (dP['Actions positions x End'] >= 102) & \
+           (dP['Actions positions y End'] >= 22) & \
+           (dP['Actions positions y End'] <= 80-22)
     
     dPG = dataPassGood[dataPassGood['Player 1']==playerName]
-    maskG = (dPG['Actions positions x End'] >= 103.5) & \
-           (dPG['Actions positions y End'] >= 19.9) & \
-           (dPG['Actions positions y End'] <= 80-19.9)
+    maskG = (dPG['Actions positions x End'] >= 102) & \
+           (dPG['Actions positions y End'] >= 22) & \
+           (dPG['Actions positions y End'] <= 80-22)
     
     PassesTable = addTableRow(PassesTable,
                             actions1=dP[mask],
@@ -410,14 +410,14 @@ if uploaded_file:
     
     """ Cross / into the box Both Halfs """
     dP = dataCross[dataCross['Player 1']==playerName]
-    mask = (dP['Actions positions x End'] >= 103.5) & \
-           (dP['Actions positions y End'] >= 19.9) & \
-           (dP['Actions positions y End'] <= 80-19.9)
+    mask = (dP['Actions positions x End'] >= 102) & \
+           (dP['Actions positions y End'] >= 22) & \
+           (dP['Actions positions y End'] <= 80-22)
     
     dPG = dataCross[dataCross['Player 1']==playerName]
-    maskG = (dPG['Actions positions x End'] >= 103.5) & \
-           (dPG['Actions positions y End'] >= 19.9) & \
-           (dPG['Actions positions y End'] <= 80-19.9)
+    maskG = (dPG['Actions positions x End'] >= 102) & \
+           (dPG['Actions positions y End'] >= 22) & \
+           (dPG['Actions positions y End'] <= 80-22)
     
     PassesTable = addTableRow(PassesTable,
                             actions1=dP[mask],
@@ -955,9 +955,9 @@ if uploaded_file:
     
     shootingTable = DataFrame()
     
-    shotInBoxMask = (dataShot['Actions positions x']>=103.5)&(dataShot['Actions positions y']>=19.9)&(dataShot['Actions positions y']<=80-19.9)
+    shotInBoxMask = (dataShot['Actions positions x']>=102)&(dataShot['Actions positions y']>=22)&(dataShot['Actions positions y']<=80-22)
     
-    shotInBoxMaskGood = (dataShotGood['Actions positions x']>=103.5)&(dataShotGood['Actions positions y']>=19.9)&(dataShotGood['Actions positions y']<=80-19.9)
+    shotInBoxMaskGood = (dataShotGood['Actions positions x']>=102)&(dataShotGood['Actions positions y']>=22)&(dataShotGood['Actions positions y']<=80-22)
     
     shotsfromFreekick = dataShot[dataShot['Extra 1']=="Free Kick"]
     shotsfromFreekickGood = dataShotGood[dataShotGood['Extra 1']=="Free Kick"]
@@ -2156,11 +2156,658 @@ if uploaded_file:
     plt.show() 
     #st.pyplot(fig_Shots_on_frame)
 
-    import streamlit as st
-    import matplotlib.pyplot as plt
-    from matplotlib.backends.backend_pdf import PdfPages
-    from PIL import Image
 
+    DefenseTable = DataFrame()
+
+    # --- Initial headers ---
+
+    # ----------------- Defense ACTIONS -----------------
+    DefenseTable = addTableRow(DefenseTable, dataChallenge[dataChallenge['Player 1']==playerName],
+                               dataChallengeWon[dataChallengeWon['Player 1']==playerName], '    Challenge / Won', 12)
+
+    DefenseTable = addTableRow(DefenseTable, dataChallengeAttacking[dataChallengeAttacking['Player 1']==playerName],
+                              dataChallengeAttackingWon[dataChallengeAttackingWon['Player 1']==playerName], '    Att Challenge / Won', 12)
+
+    DefenseTable = addTableRow(DefenseTable, dataChallengeDefensive[dataChallengeDefensive['Player 1']==playerName],
+                              dataChallengeDefensiveWon[dataChallengeDefensiveWon['Player 1']==playerName], '    Def Challenge / Won', 12)
+
+
+
+    DefenseTable = addTableRow(DefenseTable, dataTackle[dataTackle['Player 1']==playerName],
+                              dataTackleWon[dataTackleWon['Player 1']==playerName], '    Tackle / Won', 12)
+    # forward / back / left / right / into the box / ground / low / high
+    # (نفس الماسكات اللي في كودك لكن جوة attackTable)
+    """ TACKLES  IN Def 3rd  / Won"""
+    dP = dataTackle[dataTackle['Player 1']==playerName]
+    mask =  dP['Actions positions x'] <= 40
+
+    dPG = dataTackleWon[dataTackleWon['Player 1']==playerName]
+    maskG = dPG['Actions positions x'] <= 40
+
+    DefenseTable = addTableRow(DefenseTable,
+                            actions1=dP[mask],
+                            actions1Good=dPG[maskG],
+                            rowName='    Tkl in Def 3rd / won', nSpaces=12)
+
+
+    """ TACKLES  IN Mid 3rd  / Won"""
+    dP = dataTackle[dataTackle['Player 1']==playerName]
+    mask =  dP['Actions positions x'] <= 80
+
+    dPG = dataTackleWon[dataTackleWon['Player 1']==playerName]
+    maskG = dPG['Actions positions x'] <= 80
+
+    DefenseTable = addTableRow(DefenseTable,
+                            actions1=dP[mask],
+                            actions1Good=dPG[maskG],
+                            rowName='    Tkl in Mid 3rd / won', nSpaces=12)
+    
+    """ TACKLES  IN Att 3rd  / Won"""
+    dP = dataTackle[dataTackle['Player 1']==playerName]
+    mask =  dP['Actions positions x'] > 80
+
+    dPG = dataTackleWon[dataTackleWon['Player 1']==playerName]
+    maskG = dPG['Actions positions x'] > 80
+
+    DefenseTable = addTableRow(DefenseTable,
+                            actions1=dP[mask],
+                            actions1Good=dPG[maskG],
+                            rowName='    Tkl in Att 3rd / won', nSpaces=12)
+    
+
+    DefenseTable = addTableRow(DefenseTable, dataAerial[dataAerial['Player 1']==playerName],
+                              dataAerialWon[dataAerialWon['Player 1']==playerName], '    Aerial / Won', 12)
+    # forward / back / left / right / into the box / ground / low / high
+    # (نفس الماسكات اللي في كودك لكن جوة attackTable)
+    """ Aerial in Own Half  / Won"""
+    dP = dataAerial[dataAerial['Player 1']==playerName]
+    mask =  dP['Actions positions x'] > 60
+
+    dPG = dataAerialWon[dataAerialWon['Player 1']==playerName]
+    maskG = dPG['Actions positions x'] > 60
+
+    DefenseTable = addTableRow(DefenseTable,
+                            actions1=dP[mask],
+                            actions1Good=dPG[maskG],
+                            rowName='    Aerial in Own Half / won', nSpaces=12)
+
+
+    """ Aerial  in Opp Half  / Won"""
+    dP = dataAerial[dataAerial['Player 1']==playerName]
+    mask =  dP['Actions positions x'] <= 60
+
+    dPG = dataAerialWon[dataAerialWon['Player 1']==playerName]
+    maskG = dPG['Actions positions x'] <= 60
+
+    DefenseTable = addTableRow(DefenseTable,
+                            actions1=dP[mask],
+                            actions1Good=dPG[maskG],
+                            rowName='    Aerial in Opp Half / won', nSpaces=12)
+
+    """ Interception / in Opp Half """
+
+    DefenseTable = addTableRow(DefenseTable, interceptionData[interceptionData['Player 1']==playerName],
+                              interceptionDataWon[interceptionDataWon['Player 1']==playerName], '    Interception / in Opp Half', 12)
+
+    """ Interception /  in Own Half """
+    dP = interceptionData[interceptionData['Player 1']==playerName]
+    #mask =  dP['Actions positions x'] > 60
+
+    dPG = interceptionData[interceptionData['Player 1']==playerName]
+    maskG = dPG['Actions positions x'] <= 60
+
+    DefenseTable = addTableRow(DefenseTable,
+                            actions1=dP,
+                            actions1Good=dPG[maskG],
+                            rowName='    Interception /  in Own Half ', nSpaces=12)
+
+
+
+
+
+
+
+    """ Tkl + Int  / in Own Half """
+    tkl = dataTackle[dataTackle['Player 1']==playerName]
+    intc = interceptionData[interceptionData['Player 1']==playerName]
+    dP = pd.concat([tkl, intc])
+ 
+
+    #mask =  dP['Actions positions x'] > 60
+
+    dPG = dP
+    maskG = dPG['Actions positions x'] <= 60
+
+    DefenseTable = addTableRow(DefenseTable,
+                            actions1=dP,
+                            actions1Good=dPG[maskG],
+                            rowName='     Tkl + Int / in Own Half', nSpaces=12)
+
+
+    """ Tkl + Int  / in Opp Half """
+    tkl = dataTackle[dataTackle['Player 1']==playerName]
+    intc = interceptionData[interceptionData['Player 1']==playerName]
+    dP = pd.concat([tkl, intc])
+ 
+
+    #mask =  dP['Actions positions x'] > 60
+
+    dPG = dP
+    maskG = dPG['Actions positions x'] > 60
+
+    DefenseTable = addTableRow(DefenseTable,
+                            actions1=dP,
+                            actions1Good=dPG[maskG],
+                            rowName='     Tkl + Int / in Opp Half', nSpaces=12)
+
+
+
+    """ Recovered balls  / in Opp Half """
+    dP = dataRecoveredBall[(dataRecoveredBall['Player 1']==playerName)&(dataRecoveredBall['Outcome']!='Recovery Failure')]
+    #mask =  dP['Actions positions x'] > 60
+
+    dPG = dataRecoveredBall[(dataRecoveredBall['Player 1']==playerName)&(dataRecoveredBall['Outcome']!='Recovery Failure')]
+    maskG = dPG['Actions positions x'] > 60
+
+    DefenseTable = addTableRow(DefenseTable,
+                            actions1=dP,
+                            actions1Good=dPG[maskG],
+                            rowName='     Recovered balls  / in Opp Half', nSpaces=12)
+
+    """ Recovered balls  / in Att 3rd """
+    dP = dataRecoveredBall[(dataRecoveredBall['Player 1']==playerName)&(dataRecoveredBall['Outcome']!='Recovery Failure')]
+    #mask =  dP['Actions positions x'] > 60
+
+    dPG = dataRecoveredBall[(dataRecoveredBall['Player 1']==playerName)&(dataRecoveredBall['Outcome']!='Recovery Failure')]
+    maskG = dPG['Actions positions x'] > 80
+
+    DefenseTable = addTableRow(DefenseTable,
+                            actions1=dP,
+                            actions1Good=dPG[maskG],
+                            rowName='     Recovered balls  / in Att 3rd', nSpaces=12)
+    """ lost balls  / in Own Half """
+    dP = dataLostBall[dataLostBall['Player 1']==playerName]
+    #mask =  dP['Actions positions x'] > 60
+
+    dPG = dataLostBall[dataLostBall['Player 1']==playerName]
+    maskG = dPG['Actions positions x'] <= 60
+
+    DefenseTable = addTableRow(DefenseTable,
+                            actions1=dP,
+                            actions1Good=dPG[maskG],
+                            rowName='     lost balls  / in Own Half', nSpaces=12)
+
+
+    """ lost balls  / in Own Box """
+    dP = dataLostBall[dataLostBall['Player 1']==playerName]
+    #mask =  dP['Actions positions x'] > 60
+
+    dPG = dataLostBall[dataLostBall['Player 1']==playerName]
+    maskG = dataLostBall['Actions positions x']<=40
+
+    DefenseTable = addTableRow(DefenseTable,
+                            actions1=dP,
+                            actions1Good=dPG[maskG],
+                            rowName='     lost balls  / in Def 3rd', nSpaces=12)
+
+
+    """ lost balls  / in Own Box """
+    dP = dataLostBall[dataLostBall['Player 1']==playerName]
+    #mask =  dP['Actions positions x'] > 60
+
+    dPG = dataLostBall[dataLostBall['Player 1']==playerName]
+    maskG = (dataLostBall['Actions positions x']<18)&(dataLostBall['Actions positions y']>=22)&(dataShot['Actions positions y']<=80-22)
+
+    DefenseTable = addTableRow(DefenseTable,
+                            actions1=dP,
+                            actions1Good=dPG[maskG],
+                            rowName='     lost balls  / in Own Box', nSpaces=12)
+
+    
+    """   Clearance Both Halfs """
+    actions1 = dataClearance[dataClearance['Player 1']==playerName]
+    DefenseTable = addTableRow(DefenseTable,
+                            actions1=actions1,
+                            actions1Good='-',
+                            rowName='     Clearance', nSpaces=12)
+    """   Error Both Halfs """
+
+    actions1 = dataError[dataError['Player 1']==playerName]
+    DefenseTable = addTableRow(DefenseTable,
+                            actions1=actions1,
+                            actions1Good='-',
+                            rowName='     Error', nSpaces=12)
+
+
+    DefenseTable = convert_percent_columns(DefenseTable)
+
+    from PIL import Image
+    # رسم الجدول
+    fig_DefenseTable, ax_DefenseTable = plt.subplots(figsize=(16, 16))
+    
+    img = Image.open(r"WhatsApp Image 2025-09-04 at 01.18.28_529ef486.jpg")  # حط هنا مسار الصورة
+    fig_DefenseTable.figimage(img, xo=600, yo=450, alpha=0.2, zorder=0)
+    row_colors = {
+        "top4": "#1b1f1f",       # غامق جدًا
+        "top6": "#2e3a3a",       # غامق
+        "playoffs": "#555d55",   # متوسط غامق
+        "relegation": "#6b5e4d", # غامق بني/رمادي
+        "even": "#3d4949",       # غامق للصفوف الزوجية
+        "odd": "#4a5656",        # غامق للصفوف الفردية
+    }
+    bg_color =  "w"  # row_colors["odd"]
+    text_color = "k"
+    
+    plt.rcParams["text.color"] = text_color
+    plt.rcParams["font.family"] = "Arial"
+    
+    fig_DefenseTable.set_facecolor(bg_color)
+    ax_DefenseTable.set_facecolor(bg_color)
+    
+    def safe_float(x):
+        try:
+            val = float(x)
+            if val < 0:
+                return f"- {abs(val):.2f}"  # مسافة بعد السالب
+            else:
+                return f"{val:.2f}"
+        except:
+            return str(x)  # يسيب النص كما هو
+    
+    num_cols = ["Per Match", "1st half", "2nd half"]
+    for col in num_cols:
+        DefenseTable[col] = DefenseTable[col].apply(safe_float)
+    
+    tab = Table(
+        DefenseTable.round(2),
+        cell_kw={"linewidth": 0, "edgecolor": "k","height":1.2},
+        textprops={"ha": "right","va":"center","fontsize":12},
+        col_label_divider=True,  # إزالة الخط الفاصل
+        col_label_divider_kw={"color": "gray", "lw": .45},
+        index_col="PATASTATS INDEX",
+        even_row_color="w",
+        footer_divider=False,
+        footer_divider_kw={"color": bg_color, "lw": .5},
+        row_divider_kw={"color": "lightgray", "lw": .5},
+        column_border_kw={"color": "darkred", "lw": .5},
+    
+        column_definitions=[
+            ColumnDefinition("PATASTATS INDEX",title="", textprops={"ha": "left", "fontsize": 14},width=1.95),
+    
+            # النصوص الأصلية
+            ColumnDefinition("Per Match",title="Per 90",textprops={"ha": "center", "fontsize": 12}),
+            ColumnDefinition("1st half"),
+            ColumnDefinition("2nd half"),
+    
+            # أعمدة الدونات مع تكبير الحجم
+            ColumnDefinition(
+                "Per Match %",
+                title="Per 90 %",
+                width=.7,
+                textprops={"ha": "center"},
+                plot_fn=progress_donut, 
+                plot_kw={ "is_pct": True, "formatter": "{:.0%}", "radius": 0.49,"color":"r" , "width": 0.05 ,"alpha":.80}
+            ),
+            ColumnDefinition(
+                "1st half %",
+                width=.7,
+                textprops={"ha": "center"},
+                plot_fn=progress_donut, 
+                plot_kw={"is_pct": True, "formatter": "{:.0%}", "radius": 0.49, "color":"r" ,"width": 0.05,"alpha":.80}
+            ),
+            ColumnDefinition(
+                "2nd half %", 
+                width=.7, 
+                textprops={"ha": "center"},
+                plot_fn=progress_donut, 
+                plot_kw={ "is_pct": True, "formatter": "{:.0%}", "radius": 0.49,"color":"r" ,"width": 0.05,"alpha":.80 }
+            ),
+        ],
+    )
+    
+    fig_DefenseTable.text(
+        0.14, 0.9,                  # إحداثيات x و y
+        "\nDefensing Stats",
+        fontsize=22,
+        color='k'                    # لون الجزء الأول
+    )
+    fig_DefenseTable.text(
+        0.14, 0.892,                  # إحداثيات x و y
+        "_____________",        # الجزء الأول
+        fontsize=25,
+        color='gold'                    # لون الجزء الأول
+    )
+    
+    
+    plt.show()
+
+    from mplsoccer import VerticalPitch
+    import matplotlib.pyplot as plt
+    f#rom io import BytesIO
+    #from IPython.display import Image, display
+    import matplotlib.colors as mcolors
+    from matplotlib.patches import FancyArrowPatch
+    from matplotlib.ticker import StrMethodFormatter
+    from highlight_text import ax_text
+
+    # ================================
+    # 1. فلترة بيانات اللاعب
+    # ================================
+
+    playerTackle = dataTackle[dataTackle['Player 1'] == playerName]
+    playerTackleWon = dataTackleWon[dataTackleWon['Player 1'] == playerName]
+    playerTacklelost = playerTackle[~playerTackle.index.isin(playerTackleWon.index)]
+    playerAerial = dataAerial[dataAerial['Player 1'] == playerName]
+    playerAerialWon = dataAerialWon[dataAerialWon['Player 1'] == playerName]
+    playerAeriallost = playerAerial[~playerAerial.index.isin(playerAerialWon.index)]
+    playerinterception = interceptionData[interceptionData['Player 1'] == playerName]
+    playerRecoveredBall = dataRecoveredBall[(dataRecoveredBall['Player 1']==playerName)&(dataRecoveredBall['Outcome']!='Recovery Failure')]
+    playerLostBall = dataLostBall[dataLostBall['Player 1'] == playerName]
+    playerClearance = dataClearance[dataClearance['Player 1'] == playerName]
+    playerError = dataError[dataError['Player 1'] == playerName]   
+    
+    
+    halves = ['1st Half', '2nd Half']
+    
+    def filter_half(data, half):
+        return data[data['Half'] == half]
+    # ================================
+    # 2. إنشاء الشكل والمحاور
+    # ================================
+    fig_defense, axs_defense = plt.subplots(1, 2, figsize=(16, 9))
+    plt.subplots_adjust(
+        left=0.1,
+        right=.99,
+        top=0.75,
+        bottom=0.1,
+        wspace=0.005
+    )
+    pitch = VerticalPitch(pitch_color='w', line_color='k', line_zorder=2)
+    
+    # ================================
+    # 3. تقسيم البيانات حسب الشوط
+    # ================================
+    def prepare_half_data(half):
+        Tackle_Won = filter_half(playerTackleWon, half)
+        Tackle_lost = filter_half(playerTacklelost, half)
+        Aerial_Won = filter_half(playerAerialWon, half)
+        Aerial_lost = filter_half(playerAeriallost, half)
+        interception = filter_half(playerinterception, half)
+        RecoveredBall = filter_half(playerRecoveredBall,half)  
+        LostBall = filter_half(playerLostBall,half) 
+        Clearance = filter_half(playerClearance,half)
+        Error = filter_half(playerError,half)
+        
+        # pass_good = pass_good.drop(index=key_pass.index, errors='ignore')
+        # pass_bad = pass_bad.drop(index=key_pass.index, errors='ignore')
+        
+        return Tackle_Won,Tackle_lost,Aerial_Won,Aerial_lost,interception,RecoveredBall,LostBall,Clearance,Error
+    
+    half_data = [prepare_half_data(h) for h in halves]
+    
+    # ================================
+    # 4. رسم خطوط التمريرات
+    # ================================
+    def draw_pass_lines(ax, Tackle_Won, Tackle_lost, Aerial_Won, Aerial_lost,
+                        interception, RecoveredBall, LostBall, Clearance, Error):
+        
+        pitch.draw(ax=ax)
+        pitch.scatter(
+                        x=Tackle_Won['Actions positions x'],
+                        y=Tackle_Won['Actions positions y'],
+                        s=150,
+                        c='skyblue',
+                        marker="^",
+                        edgecolor='skyblue',
+                        lw=1.5,
+                        zorder=4,
+                        ax=ax)
+    
+        pitch.scatter(
+                        x=Tackle_lost['Actions positions x'],
+                        y=Tackle_lost['Actions positions y'],
+                        s=150,
+                        c='None',
+                        marker="^",
+                        edgecolor='skyblue',
+                        lw=1.5,
+                        zorder=4,
+                        ax=ax)
+    
+        pitch.scatter(
+                        x=Aerial_Won['Actions positions x'],
+                        y=Aerial_Won['Actions positions y'],
+                        s=150,
+                        c='#7E1E9C',
+                        marker="d",
+                        edgecolor='#7E1E9C',
+                        lw=1.5,
+                        zorder=4,
+                        ax=ax)
+        pitch.scatter(
+                        x=Aerial_lost['Actions positions x'],
+                        y=Aerial_lost['Actions positions y'],
+                        s=150,
+                        c='None',
+                        marker="d",
+                        edgecolor='#7E1E9C',
+                        lw=1.5,
+                        zorder=4,
+                        ax=ax)
+        pitch.scatter(
+                        x=interception['Actions positions x'],
+                        y=interception['Actions positions y'],
+                        s=150,
+                        c='gold',
+                        marker="h",
+                        edgecolor='gold',
+                        lw=1.5,
+                        zorder=4,
+                        ax=ax)
+        pitch.scatter(
+                        x=RecoveredBall['Actions positions x'],
+                        y=RecoveredBall['Actions positions y'],
+                        s=80,
+                        c='#56ae6c',
+                        marker="o",
+                        edgecolor='#56ae6c',
+                        lw=1.5,
+                        zorder=4,
+                        ax=ax)
+        pitch.scatter(
+                        x=LostBall['Actions positions x'],
+                        y=LostBall['Actions positions y'],
+                        s=80,
+                        c='#ba4f45',
+                        marker="o",
+                        edgecolor='#ba4f45',
+                        lw=1.5,
+                        zorder=4,
+                        ax=ax)
+        pitch.scatter(
+                        x=Clearance['Actions positions x'],
+                        y=Clearance['Actions positions y'],
+                        s=150,
+                        c='orange',
+                        marker="s",
+                        edgecolor='orange',
+                        lw=1.5,
+                        zorder=4,
+                        ax=ax)
+        pitch.scatter(
+                        x=Error['Actions positions x'],
+                        y=Error['Actions positions y'],
+                        s=200,
+                        c='#ba4f45',
+                        marker="x",
+                        edgecolor='#ba4f45',
+                        lw=1.5,
+                        zorder=4,
+                        ax=ax)
+        ax.axhline(
+            y=80.25,
+            xmin=.05, xmax=.95,# موقع الخط على محور X
+            color='b',    # اللون اللبني السماوي
+            linestyle='--',     # نوع الخط (ممكن تخليه '-' لو عاوزه متصل)
+            linewidth=1.5,        # سُمك الخط
+            zorder=3,           # عشان يكون فوق الخلفية لكن تحت النقاط مثلاً
+            )
+    for i, data in enumerate(half_data):
+        draw_pass_lines(axs_defense[i], *data)
+        axs_defense[i].set_title(f"{halves[i]}", y=1.05, fontsize=22, color='k')
+    
+    # ================================
+    # 5. دالة Heatmap جديدة (أفقي وعمودي)
+    # ================================
+    def draw_heatmap_full(ax, data, pitch, cmap):
+        # Heatmap أفقي
+        bin_stat_h = pitch.bin_statistic_positional(
+            data['Actions positions x'],
+            data['Actions positions y'],
+            statistic='count',
+            positional='horizontal',
+            normalize=True
+        )
+        #hm_h = pitch.heatmap_positional(bin_stat_h, ax=ax, cmap=cmap, edgecolors='None', zorder=2, alpha=.25)
+        
+        bin_dict_h = bin_stat_h[0]
+        heat_values_h = bin_dict_h['statistic'].flatten()
+        x_centers_h = bin_dict_h['cx'].flatten()
+        y_centers_h = bin_dict_h['cy'].flatten()
+        norm_h = mcolors.Normalize(vmin=heat_values_h.min(), vmax=heat_values_h.max())
+        
+        for x, y, val in zip(x_centers_h, y_centers_h, heat_values_h):
+            color = cmap(norm_h(val))
+            ax.text(y, 126.5, f'{val:.0%}', ha='center', va='center', fontsize=12, color=color)
+            ax.text(y, -6.5, f'{val:.0%}', ha='center', va='center', fontsize=12, color=color)
+        
+        y_edges = bin_dict_h['y_grid']
+        y_top = y_edges[1:-1, 1]
+        for y in y_top:
+            ax.text(y, 125, "|", ha='center', va='bottom', fontsize=15, color='gray')
+            ax.text(y, -5, "|", ha='center', va='bottom', fontsize=15, color='gray')
+        
+        # Heatmap عمودي
+        bin_stat_v = pitch.bin_statistic_positional(
+            data['Actions positions x'],
+            data['Actions positions y'],
+            statistic='count',
+            positional='vertical',
+            normalize=True
+        )
+    
+    
+        hm_h = pitch.heatmap_positional(bin_stat_v, ax=ax, cmap=cmap, edgecolors='None', zorder=2, alpha=.25)
+    
+        
+        bin_dict_v = bin_stat_v[0]
+        heat_values_v = bin_dict_v['statistic'].flatten()
+        x_centers_v = bin_dict_v['cx'].flatten()
+        y_centers_v = bin_dict_v['cy'].flatten()
+        norm_v = mcolors.Normalize(vmin=heat_values_v.min(), vmax=heat_values_v.max())
+    
+        
+        for x, y, val in zip(x_centers_v, y_centers_v, heat_values_v):
+            color = cmap(norm_v(val))
+            ax.text(-6.5, x, f'{val:.0%}', ha='center', va='center', fontsize=12, color=color)
+            ax.text(86.5, x, f'{val:.0%}', ha='center', va='center', fontsize=12, color=color)
+        
+        x_edges = bin_dict_v['x_grid']
+        x_top = x_edges[0, 1:-1]
+        for x in x_top:
+            ax.text(-5.5, x, "|", ha='center', va='bottom', fontsize=15, color='gray', rotation=90)
+            ax.text(85.5, x, "|", ha='center', va='bottom', fontsize=15, color='gray', rotation=90)
+        
+        return hm_h
+    
+    def combine_dfs(dfs):
+        """دمج أكثر من DataFrame في واحد"""
+        return pd.concat(dfs, ignore_index=True)
+    selected_indices = list(range(9))
+    
+    heatmaps = [draw_heatmap_full(axs_defense[i], combine_dfs([data[j] for j in selected_indices]),
+                                  pitch, statsbomb_cmap_red_blue) for i, data in enumerate(half_data)]
+    
+    # ================================
+    # 6. صورة خلفية (اختياري)
+    # ================================
+    ax_bg = fig_defense.add_axes([0.8, .82, .15, .18])
+    ax_bg.imshow(img, aspect='auto', alpha=1)
+    ax_bg.axis('off')
+    
+    # ================================
+    # 7. نص أسفل الشكل
+    # ================================
+    
+    colors = {'Tackle Won':'skyblue','Aerial Won':'#7E1E9C','interception':'gold','Clearance':'orange','Recovered Ball':'#56ae6c','Lost Ball':'#ba4f45',"Error":'#ba4f45'}
+    
+    edgecolors = {'Tackle Won':'skyblue','Aerial Won':'#7E1E9C','interception':'gold','Clearance':'orange','Recovered Ball':'#56ae6c','Lost Ball':'#ba4f45',"Error":'#ba4f45'}
+    
+    
+    # تعريف الـ marker لكل Outcome
+    markers = {'Tackle Won':'^','Aerial Won':'d','interception':'h','Clearance':'s','Recovered Ball':'o','Lost Ball':'o',"Error":'x'}
+    
+    
+    
+    
+    # تعريف labels لكل Outcome
+    labels = {'Tackle Won':'Tackle','Aerial Won':'Aerial','interception':'interception','Clearance':'Clearance','Recovered Ball':'Recovery','Lost Ball':'Lost Ball',"Error":'Error'}
+    
+    
+    
+    marker_handles = []
+    for outcome, marker in markers.items():
+            linestyle_ = linestyles.get(outcome, '-')
+            color = colors.get(outcome, 'none')
+            edgecolor = edgecolors.get(outcome, 'none')
+            marker_handles.append(
+                axs_defense[0].scatter([], [], color=color,  marker=marker, s=200, edgecolor=edgecolor,lw=1.5 )
+            )
+    
+    
+    plt.legend(
+        handles=marker_handles,
+        labels=['Tackle','Aerial','interception','Clearance','Recovery','Lost Ball','Error'],
+        loc='upper center',
+        ncol=7,
+        bbox_to_anchor=(-2, -5),
+        labelspacing=1.2,
+        fontsize=12,
+        frameon=False,
+        shadow=True
+    )
+    # ================================
+    # 8. Colorbar
+    # ================================
+    cax = fig_defense.add_axes([0.1, 0.15, 0.04, 0.55])
+    cbar = fig_defense.colorbar(heatmaps[0][0], cax=cax, ax=ax, location="left", fraction=0.016, pad=0.0,
+                               orientation='vertical', format=StrMethodFormatter("{x:.0%}"))
+    cbar.set_label('Defense Actions Intensity', fontsize=20, labelpad=20)
+    cbar.ax.tick_params(labelsize=12)
+    
+    # ================================
+    # 9. عنوان الشكل العام
+    # ================================
+    fig_defense.suptitle("Defense Actions Map", fontsize=40, color='gold', y=.95, x=0.2)
+    fig_defense.text(0.5, -0.1, " ", fontsize=40, color='gold')
+    # ================================
+    # 10. سهم اتجاه الهجوم
+    # ================================
+    arrow = FancyArrowPatch((0.55, 0.16), (0.55, 0.26), arrowstyle='-', linewidth=2,
+                            color='k', mutation_scale=20, transform=fig_defense.transFigure, zorder=2)
+    fig_defense.patches.append(arrow)
+    
+    arrow1 = FancyArrowPatch((0.55, 0.56), (0.55, 0.66), arrowstyle='->', linewidth=2,
+                             color='k', mutation_scale=20, transform=fig_defense.transFigure, zorder=2)
+    fig_defense.patches.append(arrow1)
+    
+    fig_defense.text(0.55, 0.31, "Attack Direction", ha='center', va='bottom',
+                    fontsize=18, color='k', zorder=3, rotation=90)
+    
+    # ================================
+    # 11. عرض الشكل
+    # ================================
+    plt.show()
 
 
 # ===================== زر عرض التقرير =====================
@@ -2213,7 +2860,7 @@ if st.button("عرض التقرير", key="show_report"):
             st.markdown("---")
 
             # ===== التبويبات =====
-            tab1, tab2, tab3 = st.tabs(["🎯 تمريرات", "⚽ تسديدات", "📊 إحصائيات"])
+            tab1, tab2, tab3, tab4 = st.tabs(["🛡️ تمريرات 🎯", "⚽ تسديدات", "📊 إحصائيات","تدخلات دفاعيه"])
 
             with tab1:
                 st.subheader("🎯 تمريرات اللاعب")
@@ -2238,7 +2885,16 @@ if st.button("عرض التقرير", key="show_report"):
                     st.pyplot(fig)
                 except:
                     st.info("🚫 لا توجد إحصائيات عامة.")
+            with tab4:
+                st.subheader("🛡️ تدخلات اللاعب الدفاعيه")
+                try:
+                    st.pyplot(fig_DefenseTable)
+                    st.pyplot(fig_defense)
+                except:
+                    st.info("🚫  لا توجد بيانات التدخلات الدفاعيه.")
 
+        
+        
         st.success("✅ تم عرض التقرير بنجاح.")
 
     except Exception as e:
@@ -2260,7 +2916,9 @@ if st.button("تحميل التقرير PDF"):
         pdf.savefig(fig_ShotTable)
         pdf.savefig(fig_Shots)
         pdf.savefig(fig_Shots_on_frame, bbox_inches='tight', pad_inches=.25)
-
+        pdf.savefig(fig_DefenseTable)
+        pdf.savefig(fig_defense,bbox_inches='tight', pad_inches=0.75)
+    
     plt.close('all')
 
     with open(pdf_path, "rb") as f:
