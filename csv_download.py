@@ -2484,7 +2484,7 @@ if uploaded_file:
 
     from mplsoccer import VerticalPitch
     import matplotlib.pyplot as plt
-    f#rom io import BytesIO
+    #from io import BytesIO
     #from IPython.display import Image, display
     import matplotlib.colors as mcolors
     from matplotlib.patches import FancyArrowPatch
