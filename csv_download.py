@@ -180,7 +180,8 @@ if uploaded_file:
        dataClearance,
        dataCross,
        dataCrossGood,
-       dataThroughBall
+       dataThroughBall,
+        dataError
     )= data_pre_procces(uploaded_file,start_side)
     st.dataframe(data.head())
     df_1 = detect_start_side(data, start_side) ##
