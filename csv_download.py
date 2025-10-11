@@ -2885,21 +2885,27 @@ if uploaded_file:
     # ===============================
     # 🔥 إنشاء الهيت ماب متوافقة مع الاتجاه الرأسي
     # ===============================
-    k = gaussian_kde(np.vstack([x, y]))
-    xi, yi = np.mgrid[0:120:300j, 0:80:200j]
-    zi = k(np.vstack([xi.flatten(), yi.flatten()]))
-    
-    # أهم خطوة 👇 — تدوير الهيت ماب عشان تتماشى مع الملعب الرأسي
-    zi_rot = np.rot90(zi.reshape(xi.shape).T)
-    
-    ax_pressing.imshow(
-        zi_rot,
-        extent=[0, 80, 0, 120],   # بدلنا الاتجاهات
-        origin='upper',
-        cmap=custom_cmap,
-        alpha=0.9,
-        zorder=1
-    )
+    if len(x) < 2 or len(y) < 2 or np.std(x) == 0 or np.std(y) == 0:
+        print("⚠️ لا يمكن حساب KDE: البيانات قليلة أو ثابتة")
+    else:
+        # ===============================
+        # 🔥 إنشاء الهيت ماب متوافقة مع الاتجاه الرأسي
+        # ===============================
+        k = gaussian_kde(np.vstack([x, y]))
+        xi, yi = np.mgrid[0:120:300j, 0:80:200j]
+        zi = k(np.vstack([xi.flatten(), yi.flatten()]))
+
+        # تدوير الهيت ماب لتتوافق مع الملعب الرأسي
+        zi_rot = np.rot90(zi.reshape(xi.shape).T)
+
+        ax_pressing.imshow(
+            zi_rot,
+            extent=[0, 80, 0, 120],
+            origin='upper',
+            cmap=custom_cmap,
+            alpha=0.9,
+            zorder=1
+        )
     
     
     pitch.inset_image(60.5, 45, img, height=70, alpha=.5, ax=ax_pressing, zorder=-1)
