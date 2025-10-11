@@ -561,6 +561,7 @@ def data_pre_procces(actionsFileDir,start_side):
     dataCrossGood = dataPassGood[dataPassGood['Extra 3']=='Cross']
     
     dataThroughBall = dataPass[dataPass['Extra 6']=='Through Ball']
+    dataError =  data[data['Event']=='Error']
     return (
         data,
         actionData,
@@ -609,6 +610,7 @@ def data_pre_procces(actionsFileDir,start_side):
         dataClearance,
         dataCross,
         dataCrossGood,
-        dataThroughBall
+        dataThroughBallو
+        dataError
     )
 
