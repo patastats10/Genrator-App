@@ -2874,12 +2874,9 @@ if uploaded_file:
     # رسم heatmap ناعمة (بدون مربعات)
     
     
-    x = np.array(PressurPlayer['Actions positions x'])
-    y = np.array(PressurPlayer['Actions positions y'])
+    x = pd.to_numeric(PressurPlayer['Actions positions x'], errors='coerce').dropna()
+    y = pd.to_numeric(PressurPlayer['Actions positions y'], errors='coerce').dropna()
 
-    # 🔹 تنظيف البيانات (إزالة NaN و∞)
-    mask = ~np.isnan(x) & ~np.isnan(y) & np.isfinite(x) & np.isfinite(y)
-    x, y = x[mask], y[mask]
 
     
     # ===============================
