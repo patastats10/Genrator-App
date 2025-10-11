@@ -39,6 +39,15 @@ import math
 from math import sqrt
 from matplotlib.lines import Line2D
 
+from mplsoccer import VerticalPitch
+import matplotlib.pyplot as plt
+from io import BytesIO
+from matplotlib.ticker import StrMethodFormatter
+from matplotlib.patches import FancyArrowPatch
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+from scipy.stats import gaussian_kde
+from matplotlib.colors import LinearSegmentedColormap
+
 from Data_process import (
     createDefensiveMask,
     createChallengeWonMask,
@@ -2812,6 +2821,103 @@ if uploaded_file:
     # ================================
     plt.show()
 
+    ################################
+    
+      #  Heatmap of pressing actions
+    
+    ###################################
+    
+    # فلترة البيانات
+    PressurPlayer  = dataPressure[dataPressure['Player 1']==playerName]
+    #actionsPlayerBad   = actionBadData[actionBadData['Player 1']==playerName]
+    
+    # إنشاء الشكل
+    fig_pressing, ax_pressing = plt.subplots(figsize=(16, 12))
+    
+    # إعداد الملعب الرأسي
+    pitch = VerticalPitch(pitch_color='w', line_color='k',line_zorder=2)
+    pitch.draw(ax=ax_pressing)
+    
+    # ===============================
+    # 🎨 إنشاء Colormap مخصصة (turbo مع طرف أبيض)
+    # ===============================
+    base_cmap = plt.colormaps.get_cmap('turbo')
+    colors = base_cmap(np.linspace(0, 1, 256))
+    colors[:60, :] = np.array([1, 1, 1, 1])  # استبدال أول 40 لون بالأبيض
+    custom_cmap = LinearSegmentedColormap.from_list("custom_turbo_white", colors)
+    
+    
+    # رسم الأفعال الجيدة
+    pitch.scatter(
+        PressurPlayer['Actions positions x'],
+        PressurPlayer['Actions positions y'],
+        c='#ff6600', edgecolor="k",s=80, lw=2,ax=ax_pressing, label='Good Actions',zorder=2
+    )
+    
+    pitch.scatter(
+        55,
+        -7,
+        c='#ff6600', edgecolor="gray",marker='^',s=300, lw=1,ax=ax_pressing, label='Good Actions',zorder=5,alpha=.7,
+    )
+    pitch.scatter(
+        60,
+        -7,
+        c='#ff6600', edgecolor="gray",marker='^',s=300, lw=1,ax=ax_pressing, label='Good Actions',zorder=5,alpha=.7,
+    )
+    pitch.scatter(
+        65,
+        -7,
+        c='#ff6600', edgecolor="gray",marker='^',s=300, lw=1,ax=ax_pressing, label='Good Actions',zorder=5,alpha=.8,
+    )
+    
+    # رسم الأفعال السيئة
+    # رسم heatmap ناعمة (بدون مربعات)
+    
+    x = PressurPlayer['Actions positions x']
+    y = PressurPlayer['Actions positions y']
+    
+    # ===============================
+    # 🔥 إنشاء الهيت ماب متوافقة مع الاتجاه الرأسي
+    # ===============================
+    k = gaussian_kde(np.vstack([x, y]))
+    xi, yi = np.mgrid[0:120:300j, 0:80:200j]
+    zi = k(np.vstack([xi.flatten(), yi.flatten()]))
+    
+    # أهم خطوة 👇 — تدوير الهيت ماب عشان تتماشى مع الملعب الرأسي
+    zi_rot = np.rot90(zi.reshape(xi.shape).T)
+    
+    ax_pressing.imshow(
+        zi_rot,
+        extent=[0, 80, 0, 120],   # بدلنا الاتجاهات
+        origin='upper',
+        cmap=custom_cmap,
+        alpha=0.9,
+        zorder=1
+    )
+    
+    
+    pitch.inset_image(60.5, 45, img, height=70, alpha=.5, ax=ax_pressing, zorder=-1)
+    pitch.inset_image(135, 130, img, height=35, alpha=1, ax=ax_pressing, zorder=1)
+    
+    
+    # عنوان
+    ax_pressing.set_title(f"\n\n    Heatmap of pressing actions ", fontsize=35, color='gold', y=1.02,x=-.23)
+    
+    
+    
+    # إضافة نص بجانب السهم يشير إلى منطقة الهجوم
+    fig_pressing.text(0.32, 0.42, "Attack Direction", ha='center', va='bottom',
+                    fontsize=18, color='gray', zorder=3, rotation=90)
+    
+    
+    
+    # ضبط حدود الملعب
+    ax_pressing.set_xlim(-15, 85)
+    ax_pressing.set_ylim(-10, 130) 
+    # حفظ الصورة
+    
+    
+    plt.show()
 
 # ===================== زر عرض التقرير =====================
 #if st.button("عرض التقرير"):
@@ -2887,6 +2993,7 @@ if st.button("عرض التقرير", key="show_report"):
                 st.subheader("📊 إحصائيات عامة")
                 try:
                     st.pyplot(fig)
+                    st.pyplot(fig_pressing)
                 except:
                     st.info("🚫 لا توجد إحصائيات عامة.")
             with tab4:
@@ -2916,6 +3023,7 @@ if st.button("تحميل التقرير PDF"):
     with PdfPages(pdf_path) as pdf:
         pdf.savefig(fig1)
         pdf.savefig(fig)
+        pdf.savefig(fig_pressing,bbox_inches='tight')
         pdf.savefig(fig_PassTable)
         pdf.savefig(fig_passes)
         pdf.savefig(fig_ShotTable)
