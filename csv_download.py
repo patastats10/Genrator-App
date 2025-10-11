@@ -350,7 +350,7 @@ if uploaded_file:
     PassesTable = addTableRow(PassesTable,
                             actions1=dP[mask],
                             actions1Good=dPG[maskG],
-                            rowName='    prg pass into the Final 3rd / accurate', nSpaces=12)
+                            rowName='    prg pass into the Att 3rd / accurate', nSpaces=12)
     
     """ progressive PASSES / into the box Both Halfs """
     dP = dataprogpass[dataprogpass['Player 1']==playerName]
