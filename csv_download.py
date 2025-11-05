@@ -1826,7 +1826,19 @@ if uploaded_file:
     
     # ✅ دمجها في DataFrame الأصلي بدون أخطاء
     playerShots = pd.concat([playerShots.reset_index(drop=True), goal_xy_df], axis=1)
-    playerShots['Goal X' ]= playerShots['Goal X'] * 1.2 -36
+    # النقاط اللي بتحدد العلاقة بين المقياسين
+    x_old = np.array([0, 15, 27, 74, 85, 100])
+    x_new = np.array([-2.5, -1, 0, 8, 9, 10.5])
+
+    # دالة التحويل
+    def convert_scale(x):
+        return np.interp(x, x_old, x_new)
+
+    # تطبيق الدالة على العمود بالكامل
+    playerShots['Goal X' ] = playerShots['Goal X' ].apply(convert_scale)
+
+
+    #playerShots['Goal X' ]= playerShots['Goal X'] * 1.2 -36
     playerShots['Goal Y' ]=  ( playerShots['Goal Y']/100 )
     
     # ================================
