@@ -2111,7 +2111,7 @@ if uploaded_file:
     # فلترة جميع القيم خارج المرمى
     valid_shots = playerShots[
         (playerShots['Goal X'] >= 0) & (playerShots['Goal X'] <= goal_width) &
-        (playerShots['Goal Y'] >= 0) & (playerShots['Goal Y'] <= 1)
+        (playerShots['Goal Y'] >= 0) & (playerShots['Goal Y'] <= 2.67)
     ]
     
     x = valid_shots['Goal X']
