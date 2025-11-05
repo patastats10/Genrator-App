@@ -10,7 +10,7 @@ from numpy import sqrt, array, rint, linspace
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Table, TableStyle
 from reportlab.lib import colors
-from mplsoccer.pitch import Pitch
+from mplsoccer import Pitch
 from scipy.ndimage import gaussian_filter
 from io import BytesIO
 import matplotlib.pyplot as plt
