@@ -2156,7 +2156,7 @@ if uploaded_file:
     
     # الإعداد النهائي
     # --------------------------------------------------------
-    ax_Shots_on_frame.set_xlim(-1, goal_width +2.5)
+    ax_Shots_on_frame.set_xlim(-10, goal_width +20.5)
     ax_Shots_on_frame.set_ylim(-1, goal_height + 3)
     ax_Shots_on_frame.set_aspect('equal')
     ax_Shots_on_frame.axis('off')
