@@ -1828,7 +1828,7 @@ if uploaded_file:
     playerShots = pd.concat([playerShots.reset_index(drop=True), goal_xy_df], axis=1)
     # النقاط اللي بتحدد العلاقة بين المقياسين
     x_old = np.array([0, 15, 27, 74, 85, 100])
-    x_new = np.array([-2.5, -1, 0, 8, 9, 10.5])
+    x_new = np.array([-3.5, -2, 0, 8, 10, 11.5])
 
     # دالة التحويل
     def convert_scale(x):
