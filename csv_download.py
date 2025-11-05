@@ -1631,7 +1631,7 @@ if uploaded_file:
     goal_height = 2.67
     depth = 0.6
     
-    fig_Shots_on_frame, ax_Shots_on_frame = plt.subplots(figsize=(20,  16))
+    fig_Shots_on_frame, ax_Shots_on_frame = plt.subplots(figsize=(25,  14.25))
     
     # إحداثيات الشبكة الخلفية
     back_left = (depth, 0.25)
