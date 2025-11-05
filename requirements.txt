@@ -8,7 +8,5 @@ mplsoccer
 scipy
 joblib
 plottable
-#svglib
-#cairosvg
 scikit-learn
-highlight_text 
+highlight_text
