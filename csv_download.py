@@ -1828,7 +1828,7 @@ if uploaded_file:
     playerShots = pd.concat([playerShots.reset_index(drop=True), goal_xy_df], axis=1)
     # النقاط اللي بتحدد العلاقة بين المقياسين
     x_old = np.array([0, 15, 27, 74, 85, 100])
-    x_new = np.array([-1, -.5, 0, 8, 8.5, 9])
+    x_new = np.array([-1.5, -.5, 0, 8, 8.5, 9.5])
 
     # دالة التحويل
     def convert_scale(x):
@@ -1846,17 +1846,17 @@ if uploaded_file:
     # ================================
     # تعريف الألوان لكل نوع قدم
     # ================================
-    colors = {'Goal':'g','Blocked':'gray','Off T':'r','Saved':'gold','Wayward':'none','Post':'gold'}
-    edgecolors = {'Goal':'w','Blocked':'k','Off T':'none','Saved':'gold','Wayward':'r','Post':'gold'}
+    colors = {'Goal':'g','Off T':'r','Saved':'gold','Wayward':'none','Post':'gold'}
+    edgecolors = {'Goal':'w','Off T':'none','Saved':'gold','Wayward':'r','Post':'gold'}
     
     # تعريف الـ marker لكل Outcome
-    markers = {'Goal':'d','Blocked':'s','Off T':'o','Saved':'o','Wayward':'o','Post':'d'}
+    markers = {'Goal':'d','Off T':'o','Saved':'o','Wayward':'o','Post':'d'}
     
     # تعريف linestyle لكل Outcome
-    linestyles = {'Goal':'-','Blocked':'-','Off T':'--','Saved':'-','Wayward':'--','Post':'-'}
+    linestyles = {'Goal':'-','Off T':'--','Saved':'-','Wayward':'--','Post':'-'}
     
     # تعريف labels لكل Outcome
-    labels = {'Goal':'Goal','Blocked':'Blocked','Off T':'Off T','Saved':'Saved','Wayward':'Wayward','Post':'Post'}
+    labels = {'Goal':'Goal','Off T':'Off T','Saved':'Saved','Wayward':'Wayward','Post':'Post'}
     
     
     
@@ -1929,9 +1929,9 @@ if uploaded_file:
     
     plt.legend(
         handles=marker_handles,
-        labels=['Goal','Blocked','Off T','Saved','Wayward','Post'],
+        labels=['Goal','Off T','Saved','Wayward','Post'],
         loc='upper center',
-        ncol=6,
+        ncol=5,
         bbox_to_anchor=(.44, 0.01),
         labelspacing=1.2,
         fontsize=12,
