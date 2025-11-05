@@ -111,7 +111,7 @@ def detect_start_side(data, start_side):
     return data
 # ================= Streamlit Config =================
 st.set_page_config(page_title="Dynamic Player Analysis", layout="wide")
-st.title("📊 رفع TSV وتحليلات اللاعبين ديناميكية")
+st.title("📊 رفع CSV وتحليلات اللاعبين ديناميكية")
 
 start_side = st.radio(
         "اختر الاتجاه الذي بدأ منه الفريق:",
@@ -121,7 +121,7 @@ start_side = st.radio(
     )
 
 # ================= File Upload =================
-uploaded_file = st.file_uploader("اختر ملف CSV (UTF-16)", type=["csv"])
+uploaded_file = st.file_uploader("اختر ملف CSV ", type=["csv"])
 if uploaded_file:
     try:
         df_ = pd.read_csv(uploaded_file, sep='\t', encoding='utf-16')
