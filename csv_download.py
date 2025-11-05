@@ -1826,7 +1826,7 @@ if uploaded_file:
     
     # ✅ دمجها في DataFrame الأصلي بدون أخطاء
     playerShots = pd.concat([playerShots.reset_index(drop=True), goal_xy_df], axis=1)
-    playerShots['Goal X' ]= playerShots['Goal X']*1.2-36
+    playerShots['Goal X' ]= playerShots['Goal X']*.8
     playerShots['Goal Y' ]=  ( playerShots['Goal Y']/100 )
     
     # ================================
