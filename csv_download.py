@@ -111,7 +111,7 @@ def detect_start_side(data, start_side):
     return data
 # ================= Streamlit Config =================
 st.set_page_config(page_title="Dynamic Player Analysis", layout="wide")
-st.title("📊 📊 رفع CSV وتحليلات اللاعبين ديناميكية")
+st.title("📊 رفع CSV وتحليلات اللاعبين ديناميكية")
 
 start_side = st.radio(
         "اختر الاتجاه الذي بدأ منه الفريق:",
