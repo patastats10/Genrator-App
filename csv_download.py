@@ -1841,7 +1841,7 @@ if uploaded_file:
     #playerShots['Goal X' ]= playerShots['Goal X'] * 1.2 -36
     #y_old = np.array([0, 37, 62, 100])
     #y_new = np.array([5.67, 4, 2.67,  0])
-    playerShots['Goal Y' ]=  (100-playerShots['Goal Y'])/10
+    playerShots['Goal Y' ]=  (100-playerShots['Goal Y'])/11.11
     
     # ================================
     # تعريف الألوان لكل نوع قدم
