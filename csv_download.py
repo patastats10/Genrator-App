@@ -1631,7 +1631,7 @@ if uploaded_file:
     goal_height = 2.67
     depth = 0.6
     
-    fig_Shots_on_frame, ax_Shots_on_frame = plt.subplots(figsize=(30,  16))
+    fig_Shots_on_frame, ax_Shots_on_frame = plt.subplots(figsize=(16,  14.25))
     
     # إحداثيات الشبكة الخلفية
     back_left = (depth, 0.25)
@@ -1828,7 +1828,7 @@ if uploaded_file:
     playerShots = pd.concat([playerShots.reset_index(drop=True), goal_xy_df], axis=1)
     # النقاط اللي بتحدد العلاقة بين المقياسين
     x_old = np.array([0, 15, 27, 74, 85, 100])
-    x_new = np.array([-2.5, -1, 0, 8, 9, 10.5])
+    x_new = np.array([-1, -.5, 0, 8, 8.5, 9])
 
     # دالة التحويل
     def convert_scale(x):
