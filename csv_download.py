@@ -1828,7 +1828,7 @@ if uploaded_file:
     playerShots = pd.concat([playerShots.reset_index(drop=True), goal_xy_df], axis=1)
     # النقاط اللي بتحدد العلاقة بين المقياسين
     x_old = np.array([0, 15, 27, 74, 85, 100])
-    x_new = np.array([-4.5, -3, 0, 8, 11, 12.5])
+    x_new = np.array([-2.5, -1, 0, 8, 9, 10.5])
 
     # دالة التحويل
     def convert_scale(x):
@@ -1839,7 +1839,9 @@ if uploaded_file:
 
 
     #playerShots['Goal X' ]= playerShots['Goal X'] * 1.2 -36
-    playerShots['Goal Y' ]=  ( playerShots['Goal Y']/100 )
+    y_old = np.array([0, 37, 62, 100])
+    y_new = np.array([5.67, 4, 2.67,  0])
+    playerShots['Goal Y' ]=  playerShots['Goal Y'].apply(convert_scale)
     
     # ================================
     # تعريف الألوان لكل نوع قدم
