@@ -85,6 +85,7 @@ def signup():
     
 # تسجيل الدخول
 def login():
+    st.image("WhatsApp Image 2025-09-04 at 01.18.28_529ef486.jpg", use_column_width=True)
     st.title("🔑 Login")
     username = st.text_input("Username", key="login_username")
     password = st.text_input("Password", type="password", key="login_password")
