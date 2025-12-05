@@ -1,0 +1,38 @@
+{
+    "Ali": {
+        "password": "$2b$12$k0XVS.jDKGUHEUJ/jaMBceDcCEFh1IMdXLQ0NrkK0t92UjH7Mscx.",
+        "status": "approved",
+        "created_at": "2025-09-11",
+        "expiry_date": "2025-10-11"
+    },
+    "Mostafa Mohamed": {
+        "password": "$2b$12$xDPSeUdx1vMD5VmmyR/9xOhknjmbSYMuUcNfmZAgrHdcEih/wys.2",
+        "status": "approved",
+        "created_at": "2025-09-11",
+        "expiry_date": "2026-09-30"
+    },
+    "Omar Marmoush": {
+        "password": "$2b$12$flkCBLgB55LCvd/x0IH9U.L2UvyPmCmCE6rsAtHyBFYXh6VMY.Qva",
+        "status": "approved",
+        "created_at": "2025-09-11",
+        "expiry_date": "2025-10-11"
+    },
+    "mgdy": {
+        "password": "$2b$12$G6eygO6gn.OQTaTuA4uLi.PYsECopDXijejwERXu9hCmmyW0o71JK",
+        "status": "approved",
+        "created_at": "2025-09-11",
+        "expiry_date": "2025-10-11"
+    },
+    "Koko": {
+        "password": "$2b$12$07rIqCAC6kwSuRTGqU3H/OTuA6qkRDTqwLW6kkzZKvpDINalU/s9S",
+        "status": "pending",
+        "created_at": "2025-09-13",
+        "expiry_date": "2025-10-13"
+    },
+    "KOKO": {
+        "password": "$2b$12$k4KOkNfHbLolTXbO5TIJNe/yw5RSmmlWbXldtVWKLlL/eUKbejs2.",
+        "status": "approved",
+        "created_at": "2025-09-13",
+        "expiry_date": "2025-09-13"
+    }
+}
