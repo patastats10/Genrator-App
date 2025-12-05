@@ -16,9 +16,9 @@ st.set_page_config(
 )
 
 USERS_FILE = "users.json"
-ADMIN_EMAIL = "pata.stats10@gmail.com"       # ضع ايميلك هنا
-ADMIN_PASSWORD = "tftd wrwt vhyi wruf"       # App Password من Google
-ADMIN_PANEL_URL = "http://localhost:8501/?admin=true" # عدل اللينك حسب السيرفر بتاعك
+ADMIN_EMAIL = st.secrets["ADMIN_EMAIL"]
+ADMIN_PASSWORD = st.secrets["ADMIN_PASSWORD"]
+ADMIN_PANEL_URL = st.secrets["ADMIN_PANEL_URL"]
 # تحميل المستخدمين
 def load_users():
     if os.path.exists(USERS_FILE):
