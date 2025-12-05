@@ -10,3 +10,4 @@ joblib
 plottable
 scikit-learn
 highlight_text
+bcrypt
